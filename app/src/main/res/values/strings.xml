@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">Judge Me - Android App</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Judge Me</string>
+
+    <string name="title_publico">Público</string>
+    <string name="title_amigos">Amigos</string>
+    <string name="title_adiciona">Adicionar</string>
+    <string name="title_pesquisa">Pesquisar</string>
+    <string name="title_perfil">Perfil</string>
+
 </resources>
