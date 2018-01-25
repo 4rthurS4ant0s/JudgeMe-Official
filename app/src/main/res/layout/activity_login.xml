@@ -88,9 +88,8 @@
 
         android:layout_marginTop="15dp"
         android:background="@drawable/button"
-        android:elevation="0dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/hint_buttom"
+        android:text="@string/hint_logar"
         android:textAlignment="center"
 
         android:textColor="@color/colorPrimaryDark"
@@ -105,7 +104,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="25dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/hint_esqueceu_senha"
         android:textColor="@color/colorPrimaryDark"
@@ -121,7 +120,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="sans-serif-condensed"
         android:text="@string/hint_criar_conta"
         android:textColor="@color/colorPrimaryDark"

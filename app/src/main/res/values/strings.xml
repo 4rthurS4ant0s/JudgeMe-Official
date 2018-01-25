@@ -13,8 +13,26 @@
     <string name="hint_email">Email</string>
     <string name="hint_senha">Senha</string>
     <string name="hint_mostrar_senha">Mostrar senha</string>
-    <string name="hint_buttom">LOGAR</string>
+    <string name="hint_logar">LOGAR</string>
     <string name="hint_esqueceu_senha">Esqueceu senha</string>
     <string name="hint_criar_conta">Criar conta</string>
+
+    #CREATE ACCOUNT PROCCESS GENERAL#
+    <string name="hint_back">Back</string>
+    <string name="hint_cancelar">Cancelar</string>
+
+    #CREATE ACCOUNT ACTIVITY 1#
+    <string name="hint_step1">1/5</string>
+    <string name="hint_primeiro_nome">Primeiro nome</string>
+    <string name="hint_sobrenome">Sobrenome</string>
+    <string name="hint_nascimento">17/07/2000</string>
+    <string name="hint_avancar">Avançar</string>
+    <string-array name="hint_generos">
+        <item>Outro</item>
+        <item>Masculino</item>
+        <item>Feminino</item>
+    </string-array>
+
+
 
 </resources>
