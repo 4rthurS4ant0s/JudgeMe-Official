@@ -1,10 +1,20 @@
 <resources>
+
     <string name="app_name">Judge Me</string>
 
+    #MAIN ACTIVITY#
     <string name="title_publico">Público</string>
     <string name="title_amigos">Amigos</string>
     <string name="title_adiciona">Adicionar</string>
     <string name="title_pesquisa">Pesquisar</string>
     <string name="title_perfil">Perfil</string>
+
+    #LOGIN ACTIVITY#
+    <string name="hint_email">Email</string>
+    <string name="hint_senha">Senha</string>
+    <string name="hint_mostrar_senha">Mostrar senha</string>
+    <string name="hint_buttom">LOGAR</string>
+    <string name="hint_esqueceu_senha">Esqueceu senha</string>
+    <string name="hint_criar_conta">Criar conta</string>
 
 </resources>

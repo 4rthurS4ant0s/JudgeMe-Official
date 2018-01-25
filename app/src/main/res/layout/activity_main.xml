@@ -5,7 +5,9 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="comj.example.android.judgeme_androidapp.MainActivity">
+    tools:context="comj.example.android.judgeme_androidapp.MainActivity"
+
+    android:background="@color/background">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

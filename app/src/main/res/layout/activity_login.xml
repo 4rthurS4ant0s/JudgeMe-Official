@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="comj.example.android.judgeme_androidapp.LoginActivity"
+
+    android:background="@color/background">
+
+    <TextView
+        android:id="@+id/textViewLoginJudgeMe"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/app_name"
+        android:textSize="36dp"
+        android:textStyle="normal"
+        android:textColor="@color/colorPrimaryDark"
+
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="25dp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <EditText
+        android:id="@+id/editTextLoginEmail"
+
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edit_text"
+        android:paddingHorizontal="10dp"
+
+        android:fontFamily="sans-serif-condensed"
+        android:hint="@string/hint_email"
+        android:inputType="textEmailAddress"
+        android:textSize="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewLoginJudgeMe"
+        android:layout_marginTop="75dp"
+        />
+
+    <EditText
+        android:id="@+id/editTextLoginSenha"
+
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:background="@drawable/edit_text"
+        android:paddingHorizontal="10dp"
+
+        android:fontFamily="sans-serif-condensed"
+        android:hint="@string/hint_senha"
+        android:inputType="textEmailAddress"
+        android:textSize="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextLoginEmail"
+        android:layout_marginTop="15dp"/>
+
+    <CheckBox
+        android:id="@+id/checkBoxLoginMostarSenha"
+
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="16dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="@string/hint_mostrar_senha"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextLoginSenha"
+        android:layout_marginTop="15dp"/>
+
+    <Button
+        android:id="@+id/buttomLogin"
+
+        android:layout_width="250dp"
+        android:layout_height="80dp"
+
+        android:layout_marginTop="15dp"
+        android:background="@drawable/button"
+        android:elevation="0dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/hint_buttom"
+        android:textAlignment="center"
+
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/checkBoxLoginMostarSenha" />
+
+    <TextView
+        android:id="@+id/textViewLoginEsqueceuSenha"
+
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/hint_esqueceu_senha"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttomLogin" />
+
+    <TextView
+        android:id="@+id/textViewLoginCriarConta"
+
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/hint_criar_conta"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewLoginEsqueceuSenha" />
+
+</android.support.constraint.ConstraintLayout>
