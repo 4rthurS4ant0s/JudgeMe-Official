@@ -1,4 +1,4 @@
-package comj.example.android.judgeme_androidapp;
+package comj.example.android.judgeme_androidapp.Activities;
 
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import java.nio.channels.AcceptPendingException;
+
+import comj.example.android.judgeme_androidapp.R;
 
 public class LoginActivity extends Activity {
 
