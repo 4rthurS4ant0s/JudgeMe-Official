@@ -49,7 +49,7 @@ public class CreateAccount1Activity extends Activity {
         setContentView(R.layout.activity_create_account1);
 
         spinnerGeneros = findViewById(R.id.spinnerCreateAccount1Generos);
-        arrayAdapter = ArrayAdapter.createFromResource(this, R.array.hint_generos, R.layout.spinner_items);
+        arrayAdapter = ArrayAdapter.createFromResource(this, R.array.hint_step1_generos, R.layout.spinner_items);
         spinnerGeneros.setAdapter(arrayAdapter);
 
         editTextNascimento = findViewById(R.id.editTextCreateAccount1Nascimento);
@@ -80,7 +80,7 @@ public class CreateAccount1Activity extends Activity {
         editTextNome = findViewById(R.id.editTextCreateAccount1PrimeiroNome);
         editTextSobrenome = findViewById(R.id.editTextCreateAccount1Sobrenome);
 
-        textViewCancelar = findViewById(R.id.textViewCreateAccountStep1Cancel);
+        textViewCancelar = findViewById(R.id.textViewCreateAccountStep1Cancelar);
         textViewCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +114,8 @@ public class CreateAccount1Activity extends Activity {
 
                     Intent intent = new Intent(CreateAccount1Activity.this, CreateAccount2Activity.class);
                     startActivity(intent);
+                    overridePendingTransitionEnter();
+                    finish();
 
                 }
 
@@ -177,9 +179,12 @@ public class CreateAccount1Activity extends Activity {
     }
 
     @Override
-    public void finish() {
-        super.finish();
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(CreateAccount1Activity.this, LoginActivity.class);
+        startActivity(intent);
         overridePendingTransitionExit();
+        finish();
     }
 
     /**

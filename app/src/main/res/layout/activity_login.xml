@@ -36,7 +36,7 @@
         android:paddingHorizontal="10dp"
 
         android:fontFamily="sans-serif-condensed"
-        android:hint="@string/hint_email"
+        android:hint="@string/hint_login_email"
         android:inputType="textEmailAddress"
         android:textSize="16dp"
 
@@ -55,7 +55,7 @@
         android:paddingHorizontal="10dp"
 
         android:fontFamily="sans-serif-condensed"
-        android:hint="@string/hint_senha"
+        android:hint="@string/hint_login_senha"
         android:inputType="textEmailAddress"
         android:textSize="16dp"
 
@@ -73,7 +73,7 @@
         android:fontFamily="sans-serif-condensed"
         android:textSize="16dp"
         android:textColor="@color/colorPrimaryDark"
-        android:text="@string/hint_mostrar_senha"
+        android:text="@string/hint_login_mostrar_senha"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +89,7 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/button"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/hint_logar"
+        android:text="@string/hint_login_logar"
         android:textAlignment="center"
 
         android:textColor="@color/colorPrimaryDark"
@@ -106,7 +106,7 @@
 
         android:layout_marginTop="25dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/hint_esqueceu_senha"
+        android:text="@string/hint_login_esqueceu_senha"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16dp"
 
@@ -122,7 +122,7 @@
 
         android:layout_marginTop="15dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/hint_criar_conta"
+        android:text="@string/hint_login_criar_conta"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16dp"
 

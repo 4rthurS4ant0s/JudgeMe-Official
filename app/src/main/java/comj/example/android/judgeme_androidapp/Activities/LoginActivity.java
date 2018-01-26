@@ -31,6 +31,7 @@ public class LoginActivity extends Activity {
                 Intent intent = new Intent(LoginActivity.this, CreateAccount1Activity.class);
                 startActivity(intent);
                 overridePendingTransition(R.animator.slide_from_right, R.animator.slide_to_left);
+                finish();
 
             }
         });
@@ -38,15 +39,15 @@ public class LoginActivity extends Activity {
     }
 
     @Override
-    public void finish() {
-        super.finish();
-        overridePendingTransitionExit();
-    }
-
-    @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
         overridePendingTransitionEnter();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     /**
