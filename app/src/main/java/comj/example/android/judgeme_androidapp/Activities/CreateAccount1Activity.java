@@ -87,6 +87,7 @@ public class CreateAccount1Activity extends Activity {
 
                 Intent intent = new Intent(CreateAccount1Activity.this, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransitionExit();
                 finish();
 
             }
@@ -110,7 +111,10 @@ public class CreateAccount1Activity extends Activity {
                     Toast.makeText(getApplicationContext(), "Nome ou sobrenome incompleto(s)",Toast.LENGTH_SHORT).show();
                 }else{
                     nomeCompleto = nome+" "+sobrenome;
-                    Toast.makeText(getApplicationContext(), "Avançar",Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(CreateAccount1Activity.this, CreateAccount2Activity.class);
+                    startActivity(intent);
+
                 }
 
             }
@@ -165,5 +169,31 @@ public class CreateAccount1Activity extends Activity {
         return null;
     }
     /**-----------------------------MOSTRANDO O CALENDÁRIO PARA QUE O USUÁRIO POSSA SELECIONAR O DIA DO NASCIMENTO--------------------------------------**/
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransitionEnter();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransitionExit();
+    }
+
+    /**
+     * Overrides the pending Activity transition by performing the "Enter" animation.
+     */
+    protected void overridePendingTransitionEnter() {
+        overridePendingTransition(R.animator.slide_from_right, R.animator.slide_to_left);
+    }
+
+    /**
+     * Overrides the pending Activity transition by performing the "Exit" animation.
+     */
+    protected void overridePendingTransitionExit() {
+        overridePendingTransition(R.animator.slide_from_left, R.animator.slide_to_right);
+    }
 
 }
