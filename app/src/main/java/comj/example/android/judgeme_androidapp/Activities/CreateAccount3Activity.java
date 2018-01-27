@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
@@ -23,10 +24,14 @@ public class CreateAccount3Activity extends Activity {
     private TextView textViewVoltar;
     private TextView textViewCancelar;
 
-    private EditText editTextDDD;
+    private EditText editTextDDDregiao;
     private EditText editTextTelefone;
 
     private Button buttonAvancar;
+
+    private String dddPais, dddRegiao, numero, numeroCompleto, numeroCompletoComMascara;
+    private String[] mDDD;
+    private ArrayAdapter<String> adapterDDDList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,15 +68,53 @@ public class CreateAccount3Activity extends Activity {
             }
         });
 
-        editTextDDD = findViewById(R.id.editTextCreateAccount3DDD);
+        editTextDDDregiao = findViewById(R.id.editTextCreateAccount3DDD);
         editTextTelefone = findViewById(R.id.editTextCreateAccount3Telefone);
+
+        mDDD = getResources().getStringArray(R.array.hint_get_ddd);
+        adapterDDDList = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                mDDD);
 
         buttonAvancar = findViewById(R.id.buttomCreateAccount3Avancar);
         buttonAvancar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+            //captando os numeros
+            dddPais = mDDD[spinnerPaises.getSelectedItemPosition()];
+            dddRegiao = editTextDDDregiao.getText().toString();
 
+            //formatando o DDDregiao para (XX)
+            dddRegiao = dddRegiao.replace("(","");
+            dddRegiao = dddRegiao.replace(")","");
+            dddRegiao = "(" + dddRegiao + ")";
+
+            numero = editTextTelefone.getText().toString();
+
+            if(verificaTelefone(numero)){//pode avançar
+
+                numeroCompletoComMascara = dddPais + dddRegiao + numero;
+                numeroCompleto = dddPais + dddRegiao + numero;
+                numeroCompleto = numeroCompleto.replace("+","");
+                numeroCompleto = numeroCompleto.replace("(","");
+                numeroCompleto = numeroCompleto.replace(")","");
+                numeroCompleto = numeroCompleto.replace("-","");
+                numeroCompleto = numeroCompleto.replace(" ","");
+                numeroCompleto = numeroCompleto.replace(".","");
+                numeroCompleto = numeroCompleto.replace("N","");
+                numeroCompleto = numeroCompleto.replace(",","");
+                numeroCompleto = numeroCompleto.replace("*","");
+
+                //Toast.makeText(getApplicationContext(),numeroCompleto,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),numeroCompletoComMascara, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(CreateAccount3Activity.this, CreateAccount4Activity.class);
+                startActivity(intent);
+                overridePendingTransitionEnter();
+                finish();
+
+            }
 
             }
         });

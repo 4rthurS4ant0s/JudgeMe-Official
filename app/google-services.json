@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "644980089156",
+    "firebase_url": "https://judge-me-android-app-oficial.firebaseio.com",
+    "project_id": "judge-me-android-app-oficial",
+    "storage_bucket": "judge-me-android-app-oficial.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644980089156:android:dae0a9ddbac4c25b",
+        "android_client_info": {
+          "package_name": "comj.example.android.judgeme_androidapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644980089156-edo8dpcjafjuhe38n0pr29pkrlnpifqf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "comj.example.android.judgeme_androidapp",
+            "certificate_hash": "528f17f2187ce8867cf638f7d8290e814bd96eab"
+          }
+        },
+        {
+          "client_id": "644980089156-nkb4ihuuav679eqrorh2g4qu56b2bivg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIDIsQq9vhi55-qgKLDIxFx96eXasLJVo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644980089156-nkb4ihuuav679eqrorh2g4qu56b2bivg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

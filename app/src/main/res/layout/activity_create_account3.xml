@@ -149,4 +149,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextCreateAccount3Telefone" />
 
+    <TextView
+        android:id="@+id/textViewCreateAccountStep3Pular"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/hint_processo_geral_pular"
+        android:textSize="24dp"
+        android:textStyle="normal"
+        android:textColor="@color/colorPrimaryDark"
+
+        app:layout_constraintStart_toStartOf="@id/buttomCreateAccount3Avancar"
+        app:layout_constraintTop_toBottomOf="@id/buttomCreateAccount3Avancar"/>
+
 </android.support.constraint.ConstraintLayout>
