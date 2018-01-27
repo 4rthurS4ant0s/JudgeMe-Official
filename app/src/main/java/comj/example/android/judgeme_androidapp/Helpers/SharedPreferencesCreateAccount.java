@@ -24,6 +24,7 @@ public class SharedPreferencesCreateAccount {
     private static final String CHAVE_SENHA = "senha";
     private static final String CHAVE_TELEFONE = "telefone";
     private static final String CHAVE_TELEFONE_MASCARA = "telefone_mascara";
+    private static final String CHAVE_NICKNAME = "nickname";
 
     public SharedPreferencesCreateAccount(Context contextParameter){
 
@@ -58,6 +59,13 @@ public class SharedPreferencesCreateAccount {
 
     }
 
+    public void salvarUsuarioPreferenciasStep5( String nickname){
+
+        editor.putString(CHAVE_NICKNAME, nickname);
+        editor.commit();
+
+    }
+
     public HashMap<String, String> getDadosUsuario(){
 
         HashMap<String, String> dadosUsuario = new HashMap<>();
@@ -69,6 +77,7 @@ public class SharedPreferencesCreateAccount {
         dadosUsuario.put(CHAVE_SENHA, sharedPreferences.getString(CHAVE_SENHA, null));
         dadosUsuario.put(CHAVE_TELEFONE, sharedPreferences.getString(CHAVE_TELEFONE, null));
         dadosUsuario.put(CHAVE_TELEFONE_MASCARA, sharedPreferences.getString(CHAVE_TELEFONE_MASCARA, null));
+        dadosUsuario.put(CHAVE_NICKNAME, sharedPreferences.getString(CHAVE_NICKNAME, null));
 
         return dadosUsuario;
     }
