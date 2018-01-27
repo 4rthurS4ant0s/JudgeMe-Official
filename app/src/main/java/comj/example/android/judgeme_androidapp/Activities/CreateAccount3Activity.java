@@ -12,8 +12,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
+
 import java.util.regex.Pattern;
 
+import comj.example.android.judgeme_androidapp.Helpers.SharedPreferencesCreateAccount;
 import comj.example.android.judgeme_androidapp.R;
 
 public class CreateAccount3Activity extends Activity {
@@ -91,6 +95,11 @@ public class CreateAccount3Activity extends Activity {
                 android.R.layout.simple_list_item_1,
                 mDDD);
 
+        //limitando o ddd da região para 3 dígitos
+        SimpleMaskFormatter smfDDD = new SimpleMaskFormatter("NNN");
+        MaskTextWatcher mtwDDD = new MaskTextWatcher(editTextDDDregiao, smfDDD);
+        editTextDDDregiao.addTextChangedListener(mtwDDD);
+
         buttonAvancar = findViewById(R.id.buttomCreateAccount3Avancar);
         buttonAvancar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,8 +130,9 @@ public class CreateAccount3Activity extends Activity {
                 numeroCompleto = numeroCompleto.replace(",","");
                 numeroCompleto = numeroCompleto.replace("*","");
 
-                //Toast.makeText(getApplicationContext(),numeroCompleto,Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getApplicationContext(),numeroCompletoComMascara, Toast.LENGTH_SHORT).show();
+                SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount3Activity.this);
+                preferencesUser.salvarUsuarioPreferenciasStep2( numeroCompleto, numeroCompletoComMascara);
+
                 Intent intent = new Intent(CreateAccount3Activity.this, CreateAccount4Activity.class);
                 startActivity(intent);
                 overridePendingTransitionEnter();

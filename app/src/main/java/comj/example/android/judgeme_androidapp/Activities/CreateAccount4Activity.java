@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import comj.example.android.judgeme_androidapp.Helpers.SharedPreferencesCreateAccount;
 import comj.example.android.judgeme_androidapp.R;
 
 public class CreateAccount4Activity extends Activity {
@@ -25,6 +26,8 @@ public class CreateAccount4Activity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account4);
+
+        SharedPreferencesCreateAccount sharedPreferencesCreateAccount = new SharedPreferencesCreateAccount(this);
 
         textViewVoltar = findViewById(R.id.textViewCreateAccountStep4Voltar);
         textViewVoltar.setOnClickListener(new View.OnClickListener() {

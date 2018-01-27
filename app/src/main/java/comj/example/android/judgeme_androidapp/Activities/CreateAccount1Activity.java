@@ -20,6 +20,7 @@ import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 
 import java.util.Calendar;
 
+import comj.example.android.judgeme_androidapp.Helpers.SharedPreferencesCreateAccount;
 import comj.example.android.judgeme_androidapp.R;
 
 public class CreateAccount1Activity extends Activity {
@@ -32,6 +33,7 @@ public class CreateAccount1Activity extends Activity {
     private EditText editTextNascimento;
 
     private TextView textViewCancelar;
+    private TextView textViewErro;
 
     private Button buttonAvancar;
 
@@ -93,6 +95,7 @@ public class CreateAccount1Activity extends Activity {
             }
         });
 
+        textViewErro = findViewById(R.id.textViewCreateAccountStep1MenssagemErro);
         buttonAvancar = findViewById(R.id.buttomCreateAccount1Avancar);
         buttonAvancar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,9 +111,14 @@ public class CreateAccount1Activity extends Activity {
                 nascimento = editTextNascimento.getText().toString();
 
                 if(nome.isEmpty() || sobrenome.isEmpty()){
-                    Toast.makeText(getApplicationContext(), "Nome ou sobrenome incompleto(s)",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Nome ou sobrenome incompleto(s)",Toast.LENGTH_SHORT).show();
+                    textViewErro.setVisibility(View.VISIBLE);
                 }else{
                     nomeCompleto = nome+" "+sobrenome;
+                    textViewErro.setVisibility(View.INVISIBLE);
+
+                    SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount1Activity.this);
+                    preferencesUser.salvarUsuarioPreferenciasStep1( nomeCompleto, genero, nascimento );
 
                     Intent intent = new Intent(CreateAccount1Activity.this, CreateAccount2Activity.class);
                     startActivity(intent);

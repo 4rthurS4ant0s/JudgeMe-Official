@@ -13,12 +13,14 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import comj.example.android.judgeme_androidapp.Helpers.SharedPreferencesCreateAccount;
 import comj.example.android.judgeme_androidapp.R;
 
 public class CreateAccount2Activity extends Activity {
 
     private TextView textViewVoltar;
     private TextView textViewCancelar;
+    private TextView textViewErro;
 
     private EditText editTextEmail;
     private EditText editTextSenha;
@@ -32,6 +34,8 @@ public class CreateAccount2Activity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account2);
+
+        textViewErro = findViewById(R.id.textViewCreateAccountStep2MenssagemErro);
 
         textViewVoltar = findViewById(R.id.textViewCreateAccountStep2Voltar);
         textViewVoltar.setOnClickListener(new View.OnClickListener() {
@@ -73,16 +77,24 @@ public class CreateAccount2Activity extends Activity {
                 confirmarSenha = editTextConfirmarSenha.getText().toString();
 
                 if(!verificaEmailValido(email)){
-                    Toast.makeText(getApplicationContext(),"Email inválido",Toast.LENGTH_SHORT).show();
+                    textViewErro.setText(R.string.hint_step2_erro_email_invalido);
+                    textViewErro.setVisibility(View.VISIBLE);
                 }else{
 
                     if(!verificaTamanhoDaSenha(senha)){
-                        Toast.makeText(getApplicationContext(),"A senha deve conter entre 6 e 18",Toast.LENGTH_SHORT).show();
+                        textViewErro.setText(R.string.hint_step2_erro_tamanho_senha);
+                        textViewErro.setVisibility(View.VISIBLE);
                     }else{
 
                         if(!verificaSeSenhasCoincidem(senha, confirmarSenha)){
-                            Toast.makeText(getApplicationContext(),"As senhas não coincidem",Toast.LENGTH_SHORT).show();
+                            textViewErro.setText(R.string.hint_step2_erro_cofirma_senha);
+                            textViewErro.setVisibility(View.VISIBLE);
                         }else{
+
+                            textViewErro.setVisibility(View.INVISIBLE);
+
+                            SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount2Activity.this);
+                            preferencesUser.salvarUsuarioPreferenciasStep2( email, senha);
 
                             Intent intent = new Intent(CreateAccount2Activity.this, CreateAccount3Activity.class);
                             startActivity(intent);

@@ -43,6 +43,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <TextView
+        android:id="@+id/textViewCreateAccountStep1MenssagemErro"
+
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/hint_step1_erro_nome"
+        android:textSize="16dp"
+        android:textStyle="normal"
+        android:textColor="@color/secondaryLightColor"
+
+        android:layout_marginTop="50dp"
+        android:layout_marginHorizontal="25dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreateAccountStep1Progresso"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <EditText
         android:id="@+id/editTextCreateAccount1PrimeiroNome"
 
@@ -58,8 +78,8 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewCreateAccountStep1Progresso"
-        android:layout_marginTop="75dp"
+        app:layout_constraintTop_toBottomOf="@id/textViewCreateAccountStep1MenssagemErro"
+        android:layout_marginTop="15dp"
         />
 
     <EditText
