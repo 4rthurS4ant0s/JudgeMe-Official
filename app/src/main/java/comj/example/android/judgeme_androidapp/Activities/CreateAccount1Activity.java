@@ -118,7 +118,7 @@ public class CreateAccount1Activity extends Activity {
                     textViewErro.setVisibility(View.INVISIBLE);
 
                     SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount1Activity.this);
-                    preferencesUser.salvarUsuarioPreferenciasStep1( nomeCompleto, genero, nascimento );
+                    preferencesUser.salvarUsuarioPreferenciasStep1( nome, sobrenome, nomeCompleto, genero, nascimento);
 
                     Intent intent = new Intent(CreateAccount1Activity.this, CreateAccount2Activity.class);
                     startActivity(intent);
@@ -178,12 +178,16 @@ public class CreateAccount1Activity extends Activity {
         }
         return null;
     }
+
     /**-----------------------------MOSTRANDO O CALENDÁRIO PARA QUE O USUÁRIO POSSA SELECIONAR O DIA DO NASCIMENTO--------------------------------------**/
+
+
 
     @Override
     public void startActivity(Intent intent) {
         super.startActivity(intent);
         overridePendingTransitionEnter();
+
     }
 
     @Override

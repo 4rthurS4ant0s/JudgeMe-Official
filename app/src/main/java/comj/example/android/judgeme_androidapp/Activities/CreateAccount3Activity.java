@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,6 +29,7 @@ public class CreateAccount3Activity extends Activity {
     private TextView textViewVoltar;
     private TextView textViewCancelar;
     private TextView textViewPular;
+    private TextView textViewErro;
 
     private EditText editTextDDDregiao;
     private EditText editTextTelefone;
@@ -78,9 +80,6 @@ public class CreateAccount3Activity extends Activity {
             @Override
             public void onClick(View v) {
 
-                SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount3Activity.this);
-                preferencesUser.salvarUsuarioPreferenciasStep3( "0", "0");
-
                 Intent intent = new Intent(CreateAccount3Activity.this, CreateAccount5Activity.class);
                 startActivity(intent);
                 overridePendingTransitionEnter();
@@ -108,40 +107,49 @@ public class CreateAccount3Activity extends Activity {
             @Override
             public void onClick(View v) {
 
-            //captando os numeros
-            dddPais = mDDD[spinnerPaises.getSelectedItemPosition()];
-            dddRegiao = editTextDDDregiao.getText().toString();
+                //captando os numeros
+                dddPais = mDDD[spinnerPaises.getSelectedItemPosition()];
+                dddRegiao = editTextDDDregiao.getText().toString();
 
-            //formatando o DDDregiao para (XX)
-            dddRegiao = dddRegiao.replace("(","");
-            dddRegiao = dddRegiao.replace(")","");
-            dddRegiao = "(" + dddRegiao + ")";
+                //formatando o DDDregiao para (XX)
+                dddRegiao = dddRegiao.replace("(", "");
+                dddRegiao = dddRegiao.replace(")", "");
+                dddRegiao = "(" + dddRegiao + ")";
 
-            numero = editTextTelefone.getText().toString();
+                numero = editTextTelefone.getText().toString();
 
-            if(verificaTelefone(numero)){//pode avançar
+                if (verificaTelefone(numero) && dddRegiao.length()>2) {//pode avançar
 
-                numeroCompletoComMascara = dddPais + dddRegiao + numero;
-                numeroCompleto = dddPais + dddRegiao + numero;
-                numeroCompleto = numeroCompleto.replace("+","");
-                numeroCompleto = numeroCompleto.replace("(","");
-                numeroCompleto = numeroCompleto.replace(")","");
-                numeroCompleto = numeroCompleto.replace("-","");
-                numeroCompleto = numeroCompleto.replace(" ","");
-                numeroCompleto = numeroCompleto.replace(".","");
-                numeroCompleto = numeroCompleto.replace("N","");
-                numeroCompleto = numeroCompleto.replace(",","");
-                numeroCompleto = numeroCompleto.replace("*","");
+                    textViewErro = findViewById(R.id.textViewCreateAccountStep3MenssagemErro);
+                    textViewErro.setVisibility(View.INVISIBLE);
 
-                SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount3Activity.this);
-                preferencesUser.salvarUsuarioPreferenciasStep3( numeroCompleto, numeroCompletoComMascara);
+                    numeroCompletoComMascara = dddPais + dddRegiao + numero;
+                    numeroCompleto = dddPais + dddRegiao + numero;
+                    numeroCompleto = numeroCompleto.replace("+", "");
+                    numeroCompleto = numeroCompleto.replace("(", "");
+                    numeroCompleto = numeroCompleto.replace(")", "");
+                    numeroCompleto = numeroCompleto.replace("-", "");
+                    numeroCompleto = numeroCompleto.replace(" ", "");
+                    numeroCompleto = numeroCompleto.replace(".", "");
+                    numeroCompleto = numeroCompleto.replace("N", "");
+                    numeroCompleto = numeroCompleto.replace(",", "");
+                    numeroCompleto = numeroCompleto.replace("*", "");
 
-                Intent intent = new Intent(CreateAccount3Activity.this, CreateAccount4Activity.class);
-                startActivity(intent);
-                overridePendingTransitionEnter();
-                finish();
+                    SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount3Activity.this);
+                    preferencesUser.salvarUsuarioPreferenciasStep3(numeroCompleto, numeroCompletoComMascara);
 
-            }
+                    Intent intent = new Intent(CreateAccount3Activity.this, CreateAccount4Activity.class);
+                    startActivity(intent);
+                    overridePendingTransitionEnter();
+                    finish();
+
+                } else {
+
+                    //numero invalido
+                    textViewErro = findViewById(R.id.textViewCreateAccountStep3MenssagemErro);
+                    textViewErro.setVisibility(View.VISIBLE);
+
+                }
 
             }
         });

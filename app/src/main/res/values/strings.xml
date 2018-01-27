@@ -51,9 +51,10 @@
 
     #CREATE ACCOUNT ACTIVITY 3#
     <string name="hint_step3">3/5</string>
-    <string name="hint_step3_message">Por favor, digite um número válido \nExemplo: +55 (21) 99374-0026</string>
+    <string name="hint_step3_message">Por favor, digite um número válido \nExemplo: +55 (21) 99999-9999</string>
     <string name="hint_step3_DDD">DDD</string>
     <string name="hint_step3_exemplo_telefone">99999-9999</string>
+    <string name="hint_step3_numero_invalido">Número inválido!</string>
     <string-array name="hint_step3_paises_ddd">
         <item> Afeganistão (+93) </item>
         <item> Albânia (+355) </item>
@@ -542,7 +543,7 @@
     <string name="hint_step4_message">Um código de confirmação foi enviado para o número: </string>
     <string name="hint_step4_cod_confirmacao">Código de confirmação</string>
     <string name="hint_step4_reenviar">Reenviar código</string>
-    <string name="hint_step4_codigo_invalido">Código inválido!</string>
+    <string name="hint_step4_codigo_invalido">Código ou número inválido!</string>
     <string name="hint_step4_codigo_tempo_excedido">Por favor, reenvie o código!</string>
 
     #CREATE ACCOUNT ACTIVITY 5#

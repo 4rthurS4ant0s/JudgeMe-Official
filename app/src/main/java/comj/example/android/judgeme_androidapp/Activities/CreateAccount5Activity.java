@@ -85,7 +85,7 @@ public class CreateAccount5Activity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(CreateAccount5Activity.this, CreateAccount4Activity.class);
+        Intent intent = new Intent(CreateAccount5Activity.this, CreateAccount3Activity.class);
         startActivity(intent);
         overridePendingTransitionExit();
         finish();

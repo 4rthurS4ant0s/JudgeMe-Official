@@ -47,7 +47,7 @@ public class SharedPreferencesCreateAccount {
 
     }
 
-    public void salvarUsuarioPreferenciasStep1( String nome_completo, String genero, String nascimento ){
+    public void salvarUsuarioPreferenciasStep1( String nome, String sobrenome, String nome_completo, String genero, String nascimento){
 
         editor.putString(CHAVE_NOME_COMPLETO, nome_completo);
         editor.putString(CHAVE_GENERO, genero);
@@ -56,7 +56,7 @@ public class SharedPreferencesCreateAccount {
 
     }
 
-    public void salvarUsuarioPreferenciasStep2( String email, String senha ){
+    public void salvarUsuarioPreferenciasStep2( String email, String senha){
 
         editor.putString(CHAVE_EMAIL, email);
         editor.putString(CHAVE_SENHA, senha);
@@ -64,7 +64,7 @@ public class SharedPreferencesCreateAccount {
 
     }
 
-    public void salvarUsuarioPreferenciasStep3( String telefone, String telefoneMascara ){
+    public void salvarUsuarioPreferenciasStep3( String telefone, String telefoneMascara){
 
         editor.putString(CHAVE_TELEFONE, telefone);
         editor.putString(CHAVE_TELEFONE_MASCARA, telefoneMascara);
