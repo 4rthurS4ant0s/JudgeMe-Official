@@ -10,21 +10,6 @@
     android:padding="10dp">
 
     <TextView
-        android:id="@+id/textViewCreateAccountStep5Voltar"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/hint_processo_geral_voltar"
-        android:textSize="24dp"
-        android:textStyle="normal"
-        android:textColor="@color/colorPrimaryDark"
-
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
         android:id="@+id/textViewCreateAccountStep5Cancelar"
 
         android:layout_width="wrap_content"

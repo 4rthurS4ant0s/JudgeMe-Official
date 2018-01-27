@@ -23,6 +23,7 @@ public class CreateAccount3Activity extends Activity {
 
     private TextView textViewVoltar;
     private TextView textViewCancelar;
+    private TextView textViewPular;
 
     private EditText editTextDDDregiao;
     private EditText editTextTelefone;
@@ -63,6 +64,19 @@ public class CreateAccount3Activity extends Activity {
                 Intent intent = new Intent(CreateAccount3Activity.this, LoginActivity.class);
                 startActivity(intent);
                 overridePendingTransitionExit();
+                finish();
+
+            }
+        });
+
+        textViewPular = findViewById(R.id.textViewCreateAccountStep3Pular);
+        textViewPular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(CreateAccount3Activity.this, CreateAccount5Activity.class);
+                startActivity(intent);
+                overridePendingTransitionEnter();
                 finish();
 
             }
