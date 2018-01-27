@@ -50,8 +50,17 @@ public class LoginActivity extends Activity {
         usuarioJaLogado();
 
         textViewEsqueceuSenha = findViewById(R.id.textViewLoginEsqueceuSenha);
-        textViewLoginCriarConta = findViewById(R.id.textViewLoginCriarConta);
+        textViewEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                email = editTextEmail.getText().toString();
+                enviarEmailParaMudarPassword(email);
+
+            }
+        });
+
+        textViewLoginCriarConta = findViewById(R.id.textViewLoginCriarConta);
         textViewLoginCriarConta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,6 +207,29 @@ public class LoginActivity extends Activity {
             startActivity(intent);
             overridePendingTransitionEnter();
             finish();
+        }
+
+    }
+
+    private void enviarEmailParaMudarPassword(String e){
+
+        if(mAuth != null) {
+            mAuth.sendPasswordResetEmail(e).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if (task.isSuccessful()) {
+                        textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
+                        textViewEmailVerificar.setText(R.string.hint_login_email_mudar_senha);
+                        textViewEmailVerificar.setVisibility(View.VISIBLE);
+                    } else {
+                        Log.d("dVerif", "erro 1");
+                    }
+
+                }
+            });
+        }else{
+            Log.d("dVerif", "erro 2");
         }
 
     }

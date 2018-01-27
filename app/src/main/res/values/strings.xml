@@ -18,6 +18,7 @@
     <string name="hint_login_criar_conta">Criar conta</string>
     <string name="hint_login_email_verificar">Um email para verificação da conta foi enviado!</string>
     <string name="hint_login_credenciais_invalidas">Verifique o email e a senha!</string>
+    <string name="hint_login_email_mudar_senha">Um email foi enviado para alteração da senha!</string>
 
     #CREATE ACCOUNT PROCCESS GENERAL#
     <string name="hint_processo_geral_voltar">Voltar</string>

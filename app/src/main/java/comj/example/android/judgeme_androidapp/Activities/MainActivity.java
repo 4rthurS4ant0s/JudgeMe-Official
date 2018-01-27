@@ -8,6 +8,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences = null;
     private SharedPreferences.Editor editor;
+
+    private Button buttonDeslogar;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -57,6 +61,19 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("com.myAppName", MODE_PRIVATE);
         primeiraVez();
 
+        buttonDeslogar = findViewById(R.id.buttonDeslogar);
+        buttonDeslogar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+                firebaseAuth.signOut();
+
+                finish();
+
+            }
+        });
+
     }
 
     @Override
@@ -69,9 +86,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.signOut();
 
         finish();
     }
