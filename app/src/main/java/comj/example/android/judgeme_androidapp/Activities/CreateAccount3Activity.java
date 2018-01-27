@@ -80,6 +80,9 @@ public class CreateAccount3Activity extends Activity {
             @Override
             public void onClick(View v) {
 
+                SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount3Activity.this);
+                preferencesUser.salvarUsuarioPreferenciasStep3("0", "0");
+
                 Intent intent = new Intent(CreateAccount3Activity.this, CreateAccount5Activity.class);
                 startActivity(intent);
                 overridePendingTransitionEnter();

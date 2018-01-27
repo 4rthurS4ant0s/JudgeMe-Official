@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ public class LoginActivity extends Activity {
     private TextView textViewEsqueceuSenha;
     private TextView textViewLoginCriarConta;
     private TextView textViewEmailVerificar;
+
+    private ProgressBar progressBar;
 
     private EditText editTextEmail;
     private EditText editTextSenha;
@@ -76,55 +79,76 @@ public class LoginActivity extends Activity {
         editTextEmail = findViewById(R.id.editTextLoginEmail);
         editTextSenha = findViewById(R.id.editTextLoginSenha);
 
+        progressBar = findViewById(R.id.simpleProgressBarLogin);
+
         buttonLogar = findViewById(R.id.buttomLogin);
         buttonLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                final FirebaseUser user = mAuth.getCurrentUser();
                 email = editTextEmail.getText().toString();
                 senha = editTextSenha.getText().toString();
 
-                mAuth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                try {//caso email e senha estejam vazios ele nao avanca
 
-                        if(task.isSuccessful() == true){
+                    mAuth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            if(user.isEmailVerified() == true){
+                            if (task.isSuccessful() == true) {//caso o usuario exista
 
-                                Log.d("dVerif","verificado");
+                                final FirebaseUser user = mAuth.getCurrentUser();
+
+                                if (user.isEmailVerified() == true) {//caso o usuario esteja com email verificado
+
+                                    Log.d("dVerif", "verificado");
+
+                                    textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
+                                    textViewEmailVerificar.setVisibility(View.INVISIBLE);
+
+                                    progressBar.setVisibility(View.VISIBLE);
+
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                    overridePendingTransitionEnter();
+                                    finish();
+
+                                } else {//caso o usuario nao esteja com email verificado
+
+                                    Log.d("dVerif", "n verificado");
+                                    enviarEmailDeVerificacao();
+
+                                }
 
                                 textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
+                                textViewEmailVerificar.setText(R.string.hint_login_email_verificar);
                                 textViewEmailVerificar.setVisibility(View.INVISIBLE);
 
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                overridePendingTransitionEnter();
-                                finish();
+                                progressBar.setVisibility(View.INVISIBLE);
 
-                            }else{
+                            } else {//caso o usuario nao exista
 
-                                Log.d("dVerif","n verificado");
-                                enviarEmailDeVerificacao();
+                                textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
+                                textViewEmailVerificar.setText(R.string.hint_login_credenciais_invalidas);
+                                textViewEmailVerificar.setVisibility(View.VISIBLE);
+
+                                progressBar.setVisibility(View.INVISIBLE);
 
                             }
 
-                            textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
-                            textViewEmailVerificar.setText(R.string.hint_login_email_verificar);
-                            textViewEmailVerificar.setVisibility(View.INVISIBLE);
-
-                        }else{
-
-                            textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
-                            textViewEmailVerificar.setText(R.string.hint_login_credenciais_invalidas);
-                            textViewEmailVerificar.setVisibility(View.VISIBLE);
 
                         }
+                    });
 
+                }catch (Exception e) {//caso o usuario nao informe o email ou senha
 
-                    }
-                });
+                    textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
+                    textViewEmailVerificar.setText(R.string.hint_login_credenciais_invalidas);
+                    textViewEmailVerificar.setVisibility(View.VISIBLE);
+
+                    progressBar.setVisibility(View.INVISIBLE);
+
+                }
 
             }
         });
@@ -190,6 +214,9 @@ public class LoginActivity extends Activity {
                 if(task.isSuccessful()){
                     textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
                     textViewEmailVerificar.setVisibility(View.VISIBLE);
+
+                    progressBar.setVisibility(View.INVISIBLE);
+
                 }else{
                     Log.d("dVerif","erro");
                 }
@@ -222,6 +249,8 @@ public class LoginActivity extends Activity {
                         textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
                         textViewEmailVerificar.setText(R.string.hint_login_email_mudar_senha);
                         textViewEmailVerificar.setVisibility(View.VISIBLE);
+
+                        progressBar.setVisibility(View.INVISIBLE);
                     } else {
                         Log.d("dVerif", "erro 1");
                     }

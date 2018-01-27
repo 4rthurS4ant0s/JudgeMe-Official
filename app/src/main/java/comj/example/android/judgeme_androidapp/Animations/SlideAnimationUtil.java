@@ -1,4 +1,4 @@
-package comj.example.android.judgeme_androidapp.Helpers;
+package comj.example.android.judgeme_androidapp.Animations;
 
 import android.content.Context;
 import android.view.View;

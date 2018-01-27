@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,9 @@ public class CreateAccount4Activity extends Activity {
     private TextView textViewMensagemPrincipal;
     private TextView textViewErro;
 
-    private EditText editTextCodigoConfimacao;
+    private ProgressBar progressBar;
+
+    //private EditText editTextCodigoConfimacao;
 
     private Button buttonAvancar;
 
@@ -105,6 +108,9 @@ public class CreateAccount4Activity extends Activity {
 
             }
         });
+
+        progressBar = findViewById(R.id.simpleProgressBarCreateAccountStep4);
+        progressBar.setVisibility(View.VISIBLE);
 
     }
 
