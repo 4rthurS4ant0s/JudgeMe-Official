@@ -131,7 +131,7 @@ public class CreateAccount3Activity extends Activity {
                 numeroCompleto = numeroCompleto.replace("*","");
 
                 SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount3Activity.this);
-                preferencesUser.salvarUsuarioPreferenciasStep2( numeroCompleto, numeroCompletoComMascara);
+                preferencesUser.salvarUsuarioPreferenciasStep3( numeroCompleto, numeroCompletoComMascara);
 
                 Intent intent = new Intent(CreateAccount3Activity.this, CreateAccount4Activity.class);
                 startActivity(intent);
