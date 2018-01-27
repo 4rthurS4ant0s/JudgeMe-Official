@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
@@ -16,6 +17,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -57,8 +64,16 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                email = editTextEmail.getText().toString();
-                enviarEmailParaMudarPassword(email);
+                try {
+                    email = editTextEmail.getText().toString();
+                    enviarEmailParaMudarPassword(email);
+                }catch (Exception e){
+
+                    textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
+                    textViewEmailVerificar.setText(R.string.hint_login_digite_um_email);
+                    textViewEmailVerificar.setVisibility(View.VISIBLE);
+
+                }
 
             }
         });
@@ -205,7 +220,6 @@ public class LoginActivity extends Activity {
     }
 
     private void enviarEmailDeVerificacao(){
-
         final FirebaseUser user = mAuth.getCurrentUser();
         user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -224,22 +238,18 @@ public class LoginActivity extends Activity {
 
             }
         });
-
     }
 
     private void usuarioJaLogado(){
-
         if(mAuth.getCurrentUser() != null){
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             overridePendingTransitionEnter();
             finish();
         }
-
     }
 
     private void enviarEmailParaMudarPassword(String e){
-
         if(mAuth != null) {
             mAuth.sendPasswordResetEmail(e).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -260,7 +270,6 @@ public class LoginActivity extends Activity {
         }else{
             Log.d("dVerif", "erro 2");
         }
-
     }
 
 }

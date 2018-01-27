@@ -2,6 +2,11 @@
 
     <string name="app_name">Judge Me</string>
 
+    #THREE DOTS MENU#
+    <string name="title_configuracao">Configurações</string>
+    <string name="title_editar_perfil">Editar perfil</string>
+    <string name="title_logout">Logout</string>
+
     #MAIN ACTIVITY#
     <string name="title_publico">Público</string>
     <string name="title_amigos">Amigos</string>
@@ -19,6 +24,7 @@
     <string name="hint_login_email_verificar">Um email para verificação da conta foi enviado!</string>
     <string name="hint_login_credenciais_invalidas">Verifique o email e a senha!</string>
     <string name="hint_login_email_mudar_senha">Um email foi enviado para alteração da senha!</string>
+    <string name="hint_login_digite_um_email">Digite um email para alterar a senha!</string>
 
     #CREATE ACCOUNT PROCCESS GENERAL#
     <string name="hint_processo_geral_voltar">Voltar</string>
