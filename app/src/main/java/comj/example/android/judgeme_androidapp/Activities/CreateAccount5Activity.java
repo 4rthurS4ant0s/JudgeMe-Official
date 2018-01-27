@@ -6,13 +6,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import comj.example.android.judgeme_androidapp.Helpers.SharedPreferencesCreateAccount;
 import comj.example.android.judgeme_androidapp.R;
 
 public class CreateAccount5Activity extends Activity {
 
     private TextView textViewCancelar;
+    private TextView textViewErro;
+
+    private EditText editTextNickname;
+
+    private String nickname;
 
     private Button buttonFinalizar;
 
@@ -34,15 +41,35 @@ public class CreateAccount5Activity extends Activity {
             }
         });
 
+        textViewErro = findViewById(R.id.textViewCreateAccountStep5MenssagemErro);
+        editTextNickname = findViewById(R.id.editTextCreateAccount5Nickname);
+
         buttonFinalizar = findViewById(R.id.buttomCreateAccount5Finalizar);
         buttonFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(CreateAccount5Activity.this, LoginActivity.class);
-                startActivity(intent);
-                overridePendingTransitionExit();
-                finish();
+                nickname = editTextNickname.getText().toString();
+
+                if(nickname != null){
+
+                    textViewErro.setVisibility(View.INVISIBLE);
+                    SharedPreferencesCreateAccount sharedPreferencesCreateAccount = new SharedPreferencesCreateAccount(getApplicationContext());
+                    sharedPreferencesCreateAccount.salvarUsuarioPreferenciasStep5(nickname);
+
+                    sharedPreferencesCreateAccount.salvarDadosDoUsuario();
+
+                    Intent intent = new Intent(CreateAccount5Activity.this, LoginActivity.class);
+                    startActivity(intent);
+                    overridePendingTransitionExit();
+                    finish();
+
+                }else{
+
+                    textViewErro.setVisibility(View.VISIBLE);
+                    textViewErro.setText(R.string.hint_step5_nickname_vazio);
+
+                }
 
             }
         });

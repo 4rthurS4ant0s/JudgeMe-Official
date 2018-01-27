@@ -216,6 +216,8 @@ public class CreateAccount4Activity extends Activity {
 
                             FirebaseUser user = task.getResult().getUser();
 
+                            mAuth.signOut();
+
                             Intent intent = new Intent(CreateAccount4Activity.this, CreateAccount5Activity.class);
                             startActivity(intent);
                             overridePendingTransitionEnter();

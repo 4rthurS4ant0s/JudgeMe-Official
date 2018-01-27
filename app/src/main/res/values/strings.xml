@@ -16,6 +16,8 @@
     <string name="hint_login_logar">LOGAR</string>
     <string name="hint_login_esqueceu_senha">Esqueceu senha</string>
     <string name="hint_login_criar_conta">Criar conta</string>
+    <string name="hint_login_email_verificar">Um email para verificação da conta foi enviado!</string>
+    <string name="hint_login_credenciais_invalidas">Verifique o email e a senha!</string>
 
     #CREATE ACCOUNT PROCCESS GENERAL#
     <string name="hint_processo_geral_voltar">Voltar</string>
@@ -546,5 +548,7 @@
     <string name="hint_step5">5/5</string>
     <string name="hint_step5_nickname">\@nickname</string>
     <string name="hint_step5_message">Escolha um nome de usuário:</string>
+    <string name="hint_step5_nickname_vazio">Escolha um nickname!</string>
+    <string name="hint_step5_nickname_existe">O nicnkname já existe!</string>
 
 </resources>
