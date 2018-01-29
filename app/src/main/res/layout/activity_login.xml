@@ -20,7 +20,7 @@
         android:textStyle="normal"
         android:textColor="@color/colorPrimaryDark"
 
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:layout_marginHorizontal="25dp"
 
         app:layout_constraintTop_toTopOf="parent"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:visibility="invisible"
 
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         app:layout_constraintTop_toBottomOf="@+id/textViewLoginJudgeMe"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -148,6 +148,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttomLogin"/>
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/buttomLoginFacebook"
+
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+
+        android:layout_marginTop="5dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/hint_login_logar"
+        android:textAlignment="center"
+        android:textSize="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttomLoginGoogle" />
+
     <TextView
         android:id="@+id/textViewLoginEsqueceuSenha"
 
@@ -162,7 +178,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttomLoginGoogle" />
+        app:layout_constraintTop_toBottomOf="@id/buttomLoginFacebook" />
 
     <TextView
         android:id="@+id/textViewLoginCriarConta"

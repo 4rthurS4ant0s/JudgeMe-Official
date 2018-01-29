@@ -2,6 +2,9 @@
 
     <string name="app_name">Judge Me</string>
 
+    <string name="facebook_app_id">216060048963088</string>
+    <string name="fb_login_protocol_scheme">fb216060048963088</string>
+
     #THREE DOTS MENU#
     <string name="title_configuracao">Configurações</string>
     <string name="title_editar_perfil">Editar perfil</string>
@@ -18,7 +21,7 @@
     <string name="hint_login_email">Email</string>
     <string name="hint_login_senha">Senha</string>
     <string name="hint_login_mostrar_senha">Mostrar senha</string>
-    <string name="hint_login_logar">LOGAR</string>
+    <string name="hint_login_logar">Fazer login</string>
     <string name="hint_login_esqueceu_senha">Esqueceu senha</string>
     <string name="hint_login_criar_conta">Criar conta</string>
     <string name="hint_login_email_verificar">Um email para verificação da conta foi enviado!</string>

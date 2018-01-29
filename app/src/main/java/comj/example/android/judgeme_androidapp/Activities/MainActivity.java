@@ -58,9 +58,6 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        //FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        //Toast.makeText(getApplicationContext(),firebaseAuth.getCurrentUser().getEmail(),Toast.LENGTH_SHORT).show();
-
         sharedPreferences = getSharedPreferences("com.myAppName", MODE_PRIVATE);
         primeiraVez();
 
