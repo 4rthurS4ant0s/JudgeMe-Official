@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 import comj.example.android.judgeme_androidapp.R;
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        //FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        //Toast.makeText(getApplicationContext(),firebaseAuth.getCurrentUser().getEmail(),Toast.LENGTH_SHORT).show();
 
         sharedPreferences = getSharedPreferences("com.myAppName", MODE_PRIVATE);
         primeiraVez();
@@ -125,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
             // do something
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             firebaseAuth.signOut();
+
+
 
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);

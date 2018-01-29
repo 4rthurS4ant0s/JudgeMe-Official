@@ -130,6 +130,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/checkBoxLoginMostarSenha" />
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/buttomLoginGoogle"
+
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+
+        android:layout_marginTop="5dp"
+        android:background="@drawable/button"
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/hint_login_logar"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttomLogin"/>
+
     <TextView
         android:id="@+id/textViewLoginEsqueceuSenha"
 
@@ -144,7 +162,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttomLogin" />
+        app:layout_constraintTop_toBottomOf="@id/buttomLoginGoogle" />
 
     <TextView
         android:id="@+id/textViewLoginCriarConta"

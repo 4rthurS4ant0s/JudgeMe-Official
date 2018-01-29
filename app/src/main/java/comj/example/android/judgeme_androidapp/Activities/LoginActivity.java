@@ -19,19 +19,27 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.nio.channels.AcceptPendingException;
 
 import comj.example.android.judgeme_androidapp.R;
+
+import static android.content.ContentValues.TAG;
 
 public class LoginActivity extends Activity {
 
@@ -48,16 +56,20 @@ public class LoginActivity extends Activity {
 
     private CheckBox checkBoxMostrarSenha;
 
+    //logar com uma contar do próprio judge me
     private Button buttonLogar;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+    //login usando a conta do google
+    private GoogleSignInClient mGoogleSignInClient;
+    private SignInButton buttonLogarGoogle;
+    private static final int RC_SIGN_IN = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        usuarioJaLogado();
 
         textViewEsqueceuSenha = findViewById(R.id.textViewLoginEsqueceuSenha);
         textViewEsqueceuSenha.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +102,7 @@ public class LoginActivity extends Activity {
 
         progressBar = findViewById(R.id.simpleProgressBarLogin);
 
+        //método de verificação de conta é destinado somente aos usuários com conta pelo judge me
         buttonLogar = findViewById(R.id.buttomLogin);
         buttonLogar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,10 +130,7 @@ public class LoginActivity extends Activity {
 
                                     progressBar.setVisibility(View.VISIBLE);
 
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    overridePendingTransitionEnter();
-                                    finish();
+                                    updateUI();
 
                                 } else {//caso o usuario nao esteja com email verificado
 
@@ -162,8 +172,8 @@ public class LoginActivity extends Activity {
             }
         });
 
-        checkBoxMostrarSenha = findViewById(R.id.checkBoxLoginMostarSenha);
         /**-----------------ALTERNANDO A VISIBILIDADE DA SENHA-----------------**/
+        checkBoxMostrarSenha = findViewById(R.id.checkBoxLoginMostarSenha);
         checkBoxMostrarSenha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,6 +195,71 @@ public class LoginActivity extends Activity {
         });
         /**-----------------ALTERNANDO A VISIBILIDADE DA SENHA-----------------**/
 
+        /**-----------------LOGIN COM A CONTA GOOGLE-----------------**/
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        buttonLogarGoogle = findViewById(R.id.buttomLoginGoogle);
+        buttonLogarGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                signIn();
+
+            }
+        });
+        /**-----------------LOGIN COM A CONTA GOOGLE-----------------**/
+
+    }
+
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = result.getSignInAccount();
+                firebaseAuthWithGoogle(account);
+            } else {
+                // Google Sign In failed, update UI appropriately
+                // ...
+            }
+        }
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        /**-----------------LOGIN COM A CONTA DO JUDGE ME-----------------**/
+        usuarioJaLogado();
+        /**-----------------LOGIN COM A CONTA DO JUDGE ME-----------------**/
+
+        // Check for existing Google Sign In account, if the user is already signed in
+        // the GoogleSignInAccount will be non-null.
+        /**-----------------LOGIN COM A CONTA GOOGLE-----------------**/
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+
+            updateUI();
+
+        }
+        /**-----------------LOGIN COM A CONTA GOOGLE-----------------**/
     }
 
     @Override
@@ -236,11 +311,47 @@ public class LoginActivity extends Activity {
 
     private void usuarioJaLogado(){
         if(mAuth.getCurrentUser() != null){
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            overridePendingTransitionEnter();
-            finish();
+
+            updateUI();
+
         }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        // [START_EXCLUDE silent]
+        // [END_EXCLUDE]
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            updateUI();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                        }
+
+                        // [START_EXCLUDE]
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
+
+    private void updateUI(){
+
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransitionEnter();
+        finish();
+
     }
 
 }
