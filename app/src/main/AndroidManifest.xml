@@ -19,18 +19,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.CreateAccount1Activity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.CreateAccount2Activity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.CreateAccount3Activity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.CreateAccount4Activity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.CreateAccount5Activity"
-            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".Activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.CreateAccount1Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.CreateAccount2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.CreateAccount3Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.CreateAccount4Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.CreateAccount5Activity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.EsqueceuSenhaActivity"></activity>
     </application>
 
 </manifest>

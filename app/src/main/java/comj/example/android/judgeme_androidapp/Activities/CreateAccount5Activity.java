@@ -16,6 +16,7 @@ public class CreateAccount5Activity extends Activity {
 
     private TextView textViewCancelar;
     private TextView textViewErro;
+    private TextView textViewVoltar;
 
     private EditText editTextNickname;
 
@@ -27,6 +28,19 @@ public class CreateAccount5Activity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account5);
+
+        textViewVoltar = findViewById(R.id.textViewCreateAccountStep5Voltar);
+        textViewVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(CreateAccount5Activity.this, CreateAccount3Activity.class);
+                startActivity(intent);
+                overridePendingTransitionExit();
+                finish();
+
+            }
+        });
 
         textViewCancelar = findViewById(R.id.textViewCreateAccountStep5Cancelar);
         textViewCancelar.setOnClickListener(new View.OnClickListener() {

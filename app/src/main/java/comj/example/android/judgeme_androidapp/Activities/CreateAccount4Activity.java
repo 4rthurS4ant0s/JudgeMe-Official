@@ -157,7 +157,7 @@ public class CreateAccount4Activity extends Activity {
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verificaiton without
                 //     user action.
-                Log.d(TAG, "onVerificationCompleted:" + credential);
+                Log.d(TAG, "onVerificationCompleted:" + String.valueOf(credential));
 
                 signInWithPhoneAuthCredential(credential);
 

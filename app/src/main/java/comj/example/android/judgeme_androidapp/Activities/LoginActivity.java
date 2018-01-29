@@ -64,16 +64,10 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                try {
-                    email = editTextEmail.getText().toString();
-                    enviarEmailParaMudarPassword(email);
-                }catch (Exception e){
-
-                    textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
-                    textViewEmailVerificar.setText(R.string.hint_login_digite_um_email);
-                    textViewEmailVerificar.setVisibility(View.VISIBLE);
-
-                }
+                Intent intent = new Intent(LoginActivity.this, EsqueceuSenhaActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.animator.slide_from_right, R.animator.slide_to_left);
+                finish();
 
             }
         });
@@ -246,29 +240,6 @@ public class LoginActivity extends Activity {
             startActivity(intent);
             overridePendingTransitionEnter();
             finish();
-        }
-    }
-
-    private void enviarEmailParaMudarPassword(String e){
-        if(mAuth != null) {
-            mAuth.sendPasswordResetEmail(e).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-
-                    if (task.isSuccessful()) {
-                        textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
-                        textViewEmailVerificar.setText(R.string.hint_login_email_mudar_senha);
-                        textViewEmailVerificar.setVisibility(View.VISIBLE);
-
-                        progressBar.setVisibility(View.INVISIBLE);
-                    } else {
-                        Log.d("dVerif", "erro 1");
-                    }
-
-                }
-            });
-        }else{
-            Log.d("dVerif", "erro 2");
         }
     }
 

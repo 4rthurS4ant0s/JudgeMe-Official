@@ -23,8 +23,13 @@
     <string name="hint_login_criar_conta">Criar conta</string>
     <string name="hint_login_email_verificar">Um email para verificação da conta foi enviado!</string>
     <string name="hint_login_credenciais_invalidas">Verifique o email e a senha!</string>
-    <string name="hint_login_email_mudar_senha">Um email foi enviado para alteração da senha!</string>
-    <string name="hint_login_digite_um_email">Digite um email para alterar a senha!</string>
+
+    #ESQUECEU A SENHA#
+    <string name="hint_esqueceu_senha">Esqueceu a senha?</string>
+    <string name="hint_esqueceu_senha_message">Digite o seu email para podermos enviar um email para redefinir sua senha:</string>
+    <string name="hint_esqueceu_senha_email_mudar_senha">Um email foi enviado para alteração da senha!</string>
+    <string name="hint_esqueceu_senha_digite_um_email">Digite um email para alterar a senha!</string>
+
 
     #CREATE ACCOUNT PROCCESS GENERAL#
     <string name="hint_processo_geral_voltar">Voltar</string>
@@ -32,6 +37,7 @@
     <string name="hint_processo_geral_avancar">Avançar</string>
     <string name="hint_processo_geral_finalizar">Finalizar</string>
     <string name="hint_processo_geral_pular">Pular</string>
+    <string name="hint_processo_geral_enviar">Enviar</string>
 
     #CREATE ACCOUNT ACTIVITY 1#
     <string name="hint_step1">1/5</string>
@@ -189,10 +195,14 @@
         <item> Lituânia (+370) </item>
         <item> Luxemburgo (+352) </item>
         <item> Macau (+853) </item>
-        <item> Macedónia (+389) </item>
-        <item> Madagáscar (+261) </item>
-        <item> Malawi (+265) </item>
-        <item> Malásia (+60) </item>
+         
+        <item> Macedónia (+389) </item>
+         
+        <item> Madagáscar (+261) </item>
+         
+        <item> Malawi (+265) </item>
+         
+        <item> Malásia (+60) </item>
         <item> Maldivas (+960) </item>
         <item> Mali (+223) </item>
         <item> Malta (+356) </item>
@@ -201,9 +211,12 @@
         <item> Martinica (+596) </item>
         <item> Mauritânia (+222) </item>
         <item> Maurícia (+230) </item>
-        <item> Ilhas Mayotte (+269) </item>
-        <item> México (+52) </item>
-        <item> Micronésia (+691) </item>
+         
+        <item> Ilhas Mayotte (+269) </item>
+         
+        <item> México (+52) </item>
+         
+        <item> Micronésia (+691) </item>
         <item> Midway Island (+808) </item>
         <item> Moldávia (+373) </item>
         <item> Mônaco (+377) </item>
