@@ -41,9 +41,7 @@ public class CreateAccount4Activity extends Activity {
 
     private ProgressBar progressBar;
 
-    //private EditText editTextCodigoConfimacao;
-
-    private Button buttonAvancar;
+    private Button buttonReenviarCod;
 
     private SharedPreferencesCreateAccount sharedPreferencesCreateAccount;
 
@@ -86,21 +84,8 @@ public class CreateAccount4Activity extends Activity {
             }
         });
 
-        buttonAvancar = findViewById(R.id.buttomCreateAccount4Avancar);
-        buttonAvancar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                Intent intent = new Intent(CreateAccount4Activity.this, CreateAccount5Activity.class);
-//                startActivity(intent);
-//                overridePendingTransitionEnter();
-//                finish();
-
-            }
-        });
-
-        textViewReenviarCodigo = findViewById(R.id.textViewCreateAccountStep4ReenviarCodigo);
-        textViewReenviarCodigo.setOnClickListener(new View.OnClickListener() {
+        buttonReenviarCod = findViewById(R.id.buttomCreateAccount4ReenviarCodigo);
+        buttonReenviarCod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -145,9 +130,7 @@ public class CreateAccount4Activity extends Activity {
 
     private void enviarToken(){
 
-        SharedPreferencesCreateAccount sharedPreferencesCreateAccount = new SharedPreferencesCreateAccount(this);
-
-        PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        final PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             @Override
             public void onVerificationCompleted(PhoneAuthCredential credential) {
@@ -157,7 +140,7 @@ public class CreateAccount4Activity extends Activity {
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verificaiton without
                 //     user action.
-                Log.d(TAG, "onVerificationCompleted:" + String.valueOf(credential));
+                Log.d(TAG, "onVerificationCompleted:" + String.valueOf(credential.getSmsCode()));
 
                 signInWithPhoneAuthCredential(credential);
 
@@ -180,6 +163,7 @@ public class CreateAccount4Activity extends Activity {
                 } else if (e instanceof FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
                     // ...
+
                     textViewErro.setText(R.string.hint_step4_codigo_tempo_excedido);
                     textViewErro.setVisibility(View.VISIBLE);
                 }
@@ -195,6 +179,7 @@ public class CreateAccount4Activity extends Activity {
                 // now need to ask the user to enter the code and then construct a credential
                 // by combining the code with a verification ID.
                 Log.d(TAG, "onCodeSent:" + verificationId + " "+ token);
+
                 //Toast.makeText(getApplicationContext(),String.valueOf(verificationId),Toast.LENGTH_SHORT).show();
                 // Save verification ID and resending token so we can use them later
 
@@ -212,6 +197,7 @@ public class CreateAccount4Activity extends Activity {
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -234,10 +220,14 @@ public class CreateAccount4Activity extends Activity {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
+                                textViewErro.setText(R.string.hint_step4_codigo_invalido);
+                                textViewErro.setVisibility(View.VISIBLE);
+
                             }
                         }
                     }
                 });
+
     }
 
 }

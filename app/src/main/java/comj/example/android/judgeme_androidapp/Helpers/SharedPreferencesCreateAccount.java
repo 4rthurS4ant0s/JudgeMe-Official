@@ -30,6 +30,8 @@ public class SharedPreferencesCreateAccount {
     private static final int MODE = 0;
     private SharedPreferences.Editor editor;
 
+    private static final String CHAVE_SMS = "sms_enviado";
+
     private static final String CHAVE_NOME_COMPLETO = "nome_completo";
     private static final String CHAVE_GENERO = "genero";
     private static final String CHAVE_NASCIMENTO = "nascimento";
@@ -72,6 +74,13 @@ public class SharedPreferencesCreateAccount {
 
     }
 
+    public void salvarUsuarioPreferenciasStep4( String sms){
+
+        editor.putString(CHAVE_SMS, sms);
+        editor.commit();
+
+    }
+
     public void salvarUsuarioPreferenciasStep5( String nickname){
 
         editor.putString(CHAVE_NICKNAME, nickname);
@@ -91,6 +100,15 @@ public class SharedPreferencesCreateAccount {
         dadosUsuario.put(CHAVE_TELEFONE, sharedPreferences.getString(CHAVE_TELEFONE, null));
         dadosUsuario.put(CHAVE_TELEFONE_MASCARA, sharedPreferences.getString(CHAVE_TELEFONE_MASCARA, null));
         dadosUsuario.put(CHAVE_NICKNAME, sharedPreferences.getString(CHAVE_NICKNAME, null));
+
+        return dadosUsuario;
+    }
+
+    public HashMap<String, String> getSms(){
+
+        HashMap<String, String> dadosUsuario = new HashMap<>();
+
+        dadosUsuario.put(CHAVE_SMS, sharedPreferences.getString(CHAVE_SMS, null));
 
         return dadosUsuario;
     }

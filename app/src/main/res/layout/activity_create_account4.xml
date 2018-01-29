@@ -108,27 +108,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <EditText
-        android:id="@+id/editTextCreateAccount3CodigoConfirmacao"
-
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:background="@drawable/edit_text"
-        android:paddingHorizontal="10dp"
-
-        android:fontFamily="sans-serif-condensed"
-        android:hint="@string/hint_step4_cod_confirmacao"
-        android:inputType="textEmailAddress"
-        android:textSize="16dp"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewCreateAccountStep4MenssagemPricipal"
-        android:layout_marginTop="15dp"
-        />
-
     <Button
-        android:id="@+id/buttomCreateAccount4Avancar"
+        android:id="@+id/buttomCreateAccount4ReenviarCodigo"
 
         android:layout_width="250dp"
         android:layout_height="80dp"
@@ -136,29 +117,13 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/button"
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/hint_processo_geral_avancar"
+        android:text="@string/hint_step4_reenviar"
         android:textAlignment="center"
 
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextCreateAccount3CodigoConfirmacao" />
-
-    <TextView
-        android:id="@+id/textViewCreateAccountStep4ReenviarCodigo"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="15dp"
-        android:fontFamily="sans-serif-condensed"
-        android:text="@string/hint_step4_reenviar"
-        android:textSize="24dp"
-        android:textStyle="normal"
-        android:textColor="@color/colorPrimaryDark"
-
-        app:layout_constraintStart_toStartOf="@id/buttomCreateAccount4Avancar"
-        app:layout_constraintTop_toBottomOf="@id/buttomCreateAccount4Avancar"/>
+        app:layout_constraintTop_toBottomOf="@id/textViewCreateAccountStep4MenssagemPricipal" />
 
 </android.support.constraint.ConstraintLayout>

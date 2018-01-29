@@ -562,7 +562,7 @@
     <string name="hint_step4_message">Um código de confirmação foi enviado para o número: </string>
     <string name="hint_step4_cod_confirmacao">Código de confirmação</string>
     <string name="hint_step4_reenviar">Reenviar código</string>
-    <string name="hint_step4_codigo_invalido">Código ou número inválido!</string>
+    <string name="hint_step4_codigo_invalido">Código inválido!</string>
     <string name="hint_step4_codigo_tempo_excedido">Por favor, reenvie o código!</string>
 
     #CREATE ACCOUNT ACTIVITY 5#
