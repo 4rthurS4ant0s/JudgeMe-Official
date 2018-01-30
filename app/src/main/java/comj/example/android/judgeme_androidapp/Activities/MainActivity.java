@@ -15,14 +15,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import comj.example.android.judgeme_androidapp.Helpers.Base64Custom;
+import comj.example.android.judgeme_androidapp.Helpers.SharedPreferencesCreateAccount;
 import comj.example.android.judgeme_androidapp.R;
 
 public class MainActivity extends AppCompatActivity {
-
-    private SharedPreferences sharedPreferences = null;
-    private SharedPreferences.Editor editor;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        sharedPreferences = getSharedPreferences("com.myAppName", MODE_PRIVATE);
-        primeiraVez();
+
 
     }
 
@@ -91,22 +94,6 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.animator.slide_from_left, R.animator.slide_to_right);
     }
 
-    private void primeiraVez(){
-
-        if (sharedPreferences.getBoolean("firstRun", true)) {
-            //You can perform anything over here. This will call only first time
-
-            //Levar o usuário pra passar pelo processo de editar perfil
-
-            Log.v("TAG","primeira vez");
-            editor = sharedPreferences.edit();
-            editor.putBoolean("firstRun", false);
-            editor.commit();
-
-        }
-
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.three_dots, menu);
@@ -126,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
             // do something
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             firebaseAuth.signOut();
-
-
 
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);

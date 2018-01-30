@@ -44,9 +44,20 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.auth.TwitterAuthProvider;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.DefaultLogger;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import java.nio.channels.AcceptPendingException;
 
+import comj.example.android.judgeme_androidapp.Helpers.SharedPreferencesCreateAccount;
 import comj.example.android.judgeme_androidapp.R;
 
 import static android.content.ContentValues.TAG;
@@ -73,7 +84,7 @@ public class LoginActivity extends Activity {
 
     //login usando a conta do google
     private GoogleSignInClient mGoogleSignInClient;
-    private SignInButton buttonLogarGoogle;
+    private Button buttonLogarGoogle;
     private static final int RC_SIGN_IN = 9001;
 
     //login usando a conta do facebook
@@ -119,6 +130,7 @@ public class LoginActivity extends Activity {
         editTextSenha = findViewById(R.id.editTextLoginSenha);
 
         progressBar = findViewById(R.id.simpleProgressBarLogin);
+        progressBar.setVisibility(View.INVISIBLE);
 
         //método de verificação de conta é destinado somente aos usuários com conta pelo judge me
         buttonLogar = findViewById(R.id.buttomLogin);
@@ -147,7 +159,6 @@ public class LoginActivity extends Activity {
                                     textViewEmailVerificar.setVisibility(View.INVISIBLE);
 
                                     progressBar.setVisibility(View.VISIBLE);
-
                                     updateUI();
 
                                 } else {//caso o usuario nao esteja com email verificado
@@ -227,6 +238,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+                progressBar.setVisibility(View.VISIBLE);
                 signIn();
 
             }
@@ -235,7 +247,7 @@ public class LoginActivity extends Activity {
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
-        buttonLogarFacebook = (LoginButton) findViewById(R.id.buttomLoginFacebook);
+        buttonLogarFacebook = findViewById(R.id.buttomLoginFacebook);
         buttonLogarFacebook.setEnabled(true);
         buttonLogarFacebook.setReadPermissions("email", "public_profile");
         buttonLogarFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
@@ -406,6 +418,7 @@ public class LoginActivity extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
                             updateUI();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -416,7 +429,6 @@ public class LoginActivity extends Activity {
                     }
                 });
     }
-
 
     private void updateUI(){
 
