@@ -49,14 +49,13 @@ public class CreateAccount2Activity extends Activity {
 
     private String email, senha, confirmarSenha;
 
+    private FirebaseAuth mFireAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account2);
-
-        textViewErro = findViewById(R.id.textViewCreateAccountStep2MenssagemErro);
 
         textViewVoltar = findViewById(R.id.textViewCreateAccountStep2Voltar);
         textViewVoltar.setOnClickListener(new View.OnClickListener() {
@@ -84,11 +83,29 @@ public class CreateAccount2Activity extends Activity {
             }
         });
 
+        progressBar = findViewById(R.id.simpleProgressBarCreateAccountStep2);
+
         editTextEmail = findViewById(R.id.editTextCreateAccount2Email);
         editTextSenha = findViewById(R.id.editTextCreateAccount2Senha);
         editTextConfirmarSenha = findViewById(R.id.editTextCreateAccount2ConfirmarSenha);
 
-        progressBar = findViewById(R.id.simpleProgressBarCreateAccountStep2);
+        if(mFireAuth.getCurrentUser() != null){//caso o usuário esteja vindo do google ou facebook
+            editTextEmail.setText(mFireAuth.getCurrentUser().getEmail());
+            email = mFireAuth.getCurrentUser().getEmail();
+            editTextEmail.setEnabled(false);
+
+            editTextSenha.setText("default");
+            senha = editTextSenha.getText().toString();
+            editTextSenha.setEnabled(false);
+
+            editTextConfirmarSenha.setText("default");
+            confirmarSenha = editTextConfirmarSenha.getText().toString();
+            editTextConfirmarSenha.setEnabled(false);
+
+            progressBar.setVisibility(View.VISIBLE);
+            Log.d("credenciais",email+senha+confirmarSenha);
+            proximaEtapa(email, senha, confirmarSenha);
+        }
 
         buttonAvancar = findViewById(R.id.buttomCreateAccount2Avancar);
         buttonAvancar.setOnClickListener(new View.OnClickListener() {
@@ -204,22 +221,27 @@ public class CreateAccount2Activity extends Activity {
 
     public void proximaEtapa(String email, String senha, String confirmarSenha){
 
+        progressBar = findViewById(R.id.simpleProgressBarCreateAccountStep2);
+        textViewErro = findViewById(R.id.textViewCreateAccountStep2MenssagemErro);
+
         if(!verificaEmailValido(email)){
             textViewErro.setText(R.string.hint_step2_erro_email_invalido);
             textViewErro.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.INVISIBLE);
         }else{
 
             if(!verificaTamanhoDaSenha(senha)){
                 textViewErro.setText(R.string.hint_step2_erro_tamanho_senha);
                 textViewErro.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
             }else{
 
                 if(!verificaSeSenhasCoincidem(senha, confirmarSenha)){
                     textViewErro.setText(R.string.hint_step2_erro_cofirma_senha);
                     textViewErro.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
                 }else{
 
-                    progressBar = findViewById(R.id.simpleProgressBarCreateAccountStep2);
                     progressBar.setVisibility(View.INVISIBLE);
 
                     textViewErro.setVisibility(View.INVISIBLE);

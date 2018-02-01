@@ -29,6 +29,7 @@
     <string name="hint_login_email_verificar">Um email para verificação da conta foi enviado!</string>
     <string name="hint_login_credenciais_invalidas">Verifique o email e a senha!</string>
     <string name="hint_login_ou">OU</string>
+    <string name="hint_login_meio_errado">Credenciais inválidas ou conta vinculada com o Google ou Facebook!</string>
 
     #ESQUECEU A SENHA#
     <string name="hint_esqueceu_senha">Esqueceu a senha?</string>

@@ -66,7 +66,7 @@ public class LoginActivity extends Activity {
 
     private TextView textViewEsqueceuSenha;
     private TextView textViewLoginCriarConta;
-    private TextView textViewEmailVerificar;
+    private TextView textViewErroLogin;
 
     private ProgressBar progressBar;
 
@@ -155,8 +155,8 @@ public class LoginActivity extends Activity {
 
                                     Log.d("dVerif", "verificado");
 
-                                    textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
-                                    textViewEmailVerificar.setVisibility(View.INVISIBLE);
+                                    textViewErroLogin = findViewById(R.id.textViewLoginErroLogin);
+                                    textViewErroLogin.setVisibility(View.INVISIBLE);
 
                                     progressBar.setVisibility(View.VISIBLE);
                                     updateUI();
@@ -168,17 +168,17 @@ public class LoginActivity extends Activity {
 
                                 }
 
-                                textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
-                                textViewEmailVerificar.setText(R.string.hint_login_email_verificar);
-                                textViewEmailVerificar.setVisibility(View.INVISIBLE);
+                                textViewErroLogin = findViewById(R.id.textViewLoginErroLogin);
+                                textViewErroLogin.setText(R.string.hint_login_email_verificar);
+                                textViewErroLogin.setVisibility(View.INVISIBLE);
 
                                 progressBar.setVisibility(View.INVISIBLE);
 
                             } else {//caso o usuario nao exista
 
-                                textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
-                                textViewEmailVerificar.setText(R.string.hint_login_credenciais_invalidas);
-                                textViewEmailVerificar.setVisibility(View.VISIBLE);
+                                textViewErroLogin = findViewById(R.id.textViewLoginErroLogin);
+                                textViewErroLogin.setText(R.string.hint_login_meio_errado);
+                                textViewErroLogin.setVisibility(View.VISIBLE);
 
                                 progressBar.setVisibility(View.INVISIBLE);
 
@@ -190,11 +190,14 @@ public class LoginActivity extends Activity {
 
                 }catch (Exception e) {//caso o usuario nao informe o email ou senha
 
-                    textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
-                    textViewEmailVerificar.setText(R.string.hint_login_credenciais_invalidas);
-                    textViewEmailVerificar.setVisibility(View.VISIBLE);
+                    textViewErroLogin = findViewById(R.id.textViewLoginErroLogin);
+                    textViewErroLogin.setText(R.string.hint_login_credenciais_invalidas);
+                    textViewErroLogin.setVisibility(View.VISIBLE);
 
                     progressBar.setVisibility(View.INVISIBLE);
+
+                    Log.d("dVerif", "erro login ");
+                    e.printStackTrace();
 
                 }
 
@@ -256,6 +259,7 @@ public class LoginActivity extends Activity {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 buttonLogarFacebook.setEnabled(false);
+                textViewErroLogin.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
 
             }
@@ -356,8 +360,8 @@ public class LoginActivity extends Activity {
             public void onComplete(@NonNull Task<Void> task) {
 
                 if(task.isSuccessful()){
-                    textViewEmailVerificar = findViewById(R.id.textViewLoginEmailVerificar);
-                    textViewEmailVerificar.setVisibility(View.VISIBLE);
+                    textViewErroLogin = findViewById(R.id.textViewLoginErroLogin);
+                    textViewErroLogin.setVisibility(View.VISIBLE);
 
                     progressBar.setVisibility(View.INVISIBLE);
 

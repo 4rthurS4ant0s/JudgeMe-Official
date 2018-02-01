@@ -40,7 +40,7 @@
 
 
     <TextView
-        android:id="@+id/textViewLoginEmailVerificar"
+        android:id="@+id/textViewLoginErroLogin"
 
         android:layout_width="250dp"
         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewLoginEmailVerificar"
+        app:layout_constraintTop_toBottomOf="@id/textViewLoginErroLogin"
         android:layout_marginTop="15dp"
         />
 

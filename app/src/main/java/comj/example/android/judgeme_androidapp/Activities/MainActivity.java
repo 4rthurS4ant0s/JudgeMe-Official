@@ -54,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    private String emailUsuarioLogado;
+
+    private FirebaseAuth mFireAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +67,35 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        emailUsuarioLogado = mFireAuth.getCurrentUser().getEmail();
 
+        /***    CASO O USUÁRIO ESTEJA LOGANDO PELA PRIMEIRA VEZ OU PELO FACE OU PELO GOOGLE...ELE SERÁ MANDADO PARA "CADASTRAR A CONTA"       **/
+        DocumentReference docRef = db.collection("usuarios").document(Base64Custom.converterBase64(emailUsuarioLogado));
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()) {
+                        if (document != null) {
+                            Log.d("email", "Usuário já se registrou: " + task.getResult().getData());
+                        }
+                    }else{
+                        Log.d("email","Usuário precisa se registrar");
+
+                        Intent intent = new Intent(MainActivity.this, CreateAccount1Activity.class);
+                        startActivity(intent);
+                        finish();
+
+                    }
+
+                }else{
+                    Log.d("email","erro ao consultar");
+                }
+
+            }
+        });
 
     }
 
