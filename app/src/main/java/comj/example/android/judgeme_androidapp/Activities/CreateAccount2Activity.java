@@ -2,19 +2,34 @@ package comj.example.android.judgeme_androidapp.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryListenOptions;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import comj.example.android.judgeme_androidapp.Helpers.Base64Custom;
 import comj.example.android.judgeme_androidapp.Helpers.SharedPreferencesCreateAccount;
 import comj.example.android.judgeme_androidapp.R;
 
@@ -28,9 +43,13 @@ public class CreateAccount2Activity extends Activity {
     private EditText editTextSenha;
     private EditText editTextConfirmarSenha;
 
+    private ProgressBar progressBar;
+
     private Button buttonAvancar;
 
     private String email, senha, confirmarSenha;
+
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,45 +88,47 @@ public class CreateAccount2Activity extends Activity {
         editTextSenha = findViewById(R.id.editTextCreateAccount2Senha);
         editTextConfirmarSenha = findViewById(R.id.editTextCreateAccount2ConfirmarSenha);
 
+        progressBar = findViewById(R.id.simpleProgressBarCreateAccountStep2);
+
         buttonAvancar = findViewById(R.id.buttomCreateAccount2Avancar);
         buttonAvancar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                progressBar.setVisibility(View.VISIBLE);
+                textViewErro.setVisibility(View.INVISIBLE);
+
                 email = editTextEmail.getText().toString();
                 senha = editTextSenha.getText().toString();
                 confirmarSenha = editTextConfirmarSenha.getText().toString();
 
-                if(!verificaEmailValido(email)){
-                    textViewErro.setText(R.string.hint_step2_erro_email_invalido);
-                    textViewErro.setVisibility(View.VISIBLE);
-                }else{
+                DocumentReference docRef = db.collection("usuarios").document(Base64Custom.converterBase64(email));
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                    if(!verificaTamanhoDaSenha(senha)){
-                        textViewErro.setText(R.string.hint_step2_erro_tamanho_senha);
-                        textViewErro.setVisibility(View.VISIBLE);
-                    }else{
+                        if(task.isSuccessful()){
+                            DocumentSnapshot document = task.getResult();
+                            if(document.exists()) {
+                                if (document != null) {
+                                    Log.d("email", "Email já sendo usado: " + task.getResult().getData());
+                                    textViewErro.setText(R.string.hint_step2_erro_email_em_uso);
+                                    textViewErro.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
+                            }else{
+                                Log.d("email","Email inutilazado");
+                                progressBar.setVisibility(View.VISIBLE);
+                                proximaEtapa(email, senha, confirmarSenha);
+                            }
 
-                        if(!verificaSeSenhasCoincidem(senha, confirmarSenha)){
-                            textViewErro.setText(R.string.hint_step2_erro_cofirma_senha);
-                            textViewErro.setVisibility(View.VISIBLE);
                         }else{
-
-                            textViewErro.setVisibility(View.INVISIBLE);
-
-                            SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount2Activity.this);
-                            preferencesUser.salvarUsuarioPreferenciasStep2( email, senha);
-
-                            Intent intent = new Intent(CreateAccount2Activity.this, CreateAccount3Activity.class);
-                            startActivity(intent);
-                            overridePendingTransitionEnter();
-                            finish();
-
+                            Log.d("email","erro ao consultar");
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
 
                     }
-
-                }
+                });
 
             }
         });
@@ -179,6 +200,44 @@ public class CreateAccount2Activity extends Activity {
         }else{
             return false;
         }
+    }
+
+    public void proximaEtapa(String email, String senha, String confirmarSenha){
+
+        if(!verificaEmailValido(email)){
+            textViewErro.setText(R.string.hint_step2_erro_email_invalido);
+            textViewErro.setVisibility(View.VISIBLE);
+        }else{
+
+            if(!verificaTamanhoDaSenha(senha)){
+                textViewErro.setText(R.string.hint_step2_erro_tamanho_senha);
+                textViewErro.setVisibility(View.VISIBLE);
+            }else{
+
+                if(!verificaSeSenhasCoincidem(senha, confirmarSenha)){
+                    textViewErro.setText(R.string.hint_step2_erro_cofirma_senha);
+                    textViewErro.setVisibility(View.VISIBLE);
+                }else{
+
+                    progressBar = findViewById(R.id.simpleProgressBarCreateAccountStep2);
+                    progressBar.setVisibility(View.INVISIBLE);
+
+                    textViewErro.setVisibility(View.INVISIBLE);
+
+                    SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount2Activity.this);
+                    preferencesUser.salvarUsuarioPreferenciasStep2( email, senha);
+
+                    Intent intent = new Intent(CreateAccount2Activity.this, CreateAccount3Activity.class);
+                    startActivity(intent);
+                    overridePendingTransitionEnter();
+                    finish();
+
+                }
+
+            }
+
+        }
+
     }
 
 }

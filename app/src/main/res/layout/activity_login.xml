@@ -151,6 +151,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        android:layout_marginTop="5dp"
         android:text="@string/hint_login_ou"
         android:fontFamily="sans-serif-condensed"
         android:textAlignment="center"
@@ -162,6 +163,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/buttomLogin"
+        />
+
+    <TextView
+        android:id="@+id/textViewOUbarra1"
+
+        android:layout_width="140dp"
+        android:layout_height="1.2dp"
+
+        android:background="@drawable/edit_text"
+
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="5dp"
+
+        android:paddingVertical="10dp"
+
+        app:layout_constraintEnd_toStartOf="@id/textViewOU"
+        app:layout_constraintTop_toBottomOf="@id/textViewOU"
+        app:layout_constraintBottom_toTopOf="@+id/textViewOU"
+        />
+
+    <TextView
+        android:id="@+id/textViewOUbarra2"
+
+        android:layout_width="140dp"
+        android:layout_height="1.2dp"
+
+        android:background="@drawable/edit_text"
+
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="5dp"
+
+        android:paddingVertical="10dp"
+
+        app:layout_constraintStart_toEndOf="@id/textViewOU"
+        app:layout_constraintTop_toBottomOf="@id/textViewOU"
+        app:layout_constraintBottom_toTopOf="@+id/textViewOU"
         />
 
     <Button
@@ -180,8 +217,6 @@
 
         app:layout_constraintStart_toStartOf="@id/buttomLogin"
         app:layout_constraintTop_toBottomOf="@id/textViewOU" />
-
-
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/buttomLoginFacebook"

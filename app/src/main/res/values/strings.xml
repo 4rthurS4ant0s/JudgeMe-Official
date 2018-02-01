@@ -28,7 +28,7 @@
     <string name="hint_login_criar_conta">Criar uma conta</string>
     <string name="hint_login_email_verificar">Um email para verificação da conta foi enviado!</string>
     <string name="hint_login_credenciais_invalidas">Verifique o email e a senha!</string>
-    <string name="hint_login_ou">--------------------------      OU      --------------------------</string>
+    <string name="hint_login_ou">OU</string>
 
     #ESQUECEU A SENHA#
     <string name="hint_esqueceu_senha">Esqueceu a senha?</string>
@@ -64,6 +64,7 @@
     <string name="hint_step2_senha">Senha</string>
     <string name="hint_step2_confirmar_senha">Confirmar senha</string>
     <string name="hint_step2_erro_email_invalido">Email inválido!</string>
+    <string name="hint_step2_erro_email_em_uso">O email está em uso!</string>
     <string name="hint_step2_erro_tamanho_senha">A senha deve conter entre 6 e 18 caracteres"</string>
     <string name="hint_step2_erro_cofirma_senha">As senhas não coincidem!</string>
 
