@@ -22,12 +22,13 @@
     <string name="hint_login_senha">Senha</string>
     <string name="hint_login_mostrar_senha">Mostrar senha</string>
     <string name="hint_login_logar">Fazer login</string>
-    <string name="hint_login_logar_google">Fazer login com Google</string>
-    <string name="hint_login_logar_facebook">Fazer login com Facebook</string>
-    <string name="hint_login_esqueceu_senha">Esqueceu senha</string>
-    <string name="hint_login_criar_conta">Criar conta</string>
+    <string name="hint_login_logar_google">Continuar com o Google</string>
+    <string name="hint_login_logar_facebook">Fazer login com o Facebook</string>
+    <string name="hint_login_esqueceu_senha">Esqueceu senha?</string>
+    <string name="hint_login_criar_conta">Criar uma conta</string>
     <string name="hint_login_email_verificar">Um email para verificação da conta foi enviado!</string>
     <string name="hint_login_credenciais_invalidas">Verifique o email e a senha!</string>
+    <string name="hint_login_ou">--------------------------      OU      --------------------------</string>
 
     #ESQUECEU A SENHA#
     <string name="hint_esqueceu_senha">Esqueceu a senha?</string>
