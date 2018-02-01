@@ -67,6 +67,11 @@ public class CreateAccount5Activity extends Activity {
 
                 if(nickname != null){
 
+                    //caso nao esteja utilizando arroba
+                    if(!nickname.startsWith("@")) {
+                        nickname = "@"+nickname;
+                    }
+
                     textViewErro.setVisibility(View.INVISIBLE);
                     SharedPreferencesCreateAccount sharedPreferencesCreateAccount = new SharedPreferencesCreateAccount(getApplicationContext());
                     sharedPreferencesCreateAccount.salvarUsuarioPreferenciasStep5(nickname);
