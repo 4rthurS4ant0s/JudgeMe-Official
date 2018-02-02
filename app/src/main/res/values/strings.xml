@@ -57,6 +57,8 @@
         <item>Feminino</item>
     </string-array>
     <string name="hint_step1_erro_nome">Nome ou sobrenome inválido(s)!</string>
+    <string name="hint_step1_erro_nome_invalido">Números não são válidos!</string>
+    <string name="hint_step1_iforme_alguns_dados">Por favor, informe alguns dados.</string>
 
     #CREATE ACCOUNT ACTIVITY 2#
     <string name="hint_step2">2/5</string>
@@ -579,5 +581,8 @@
     <string name="hint_step5_message">Escolha um nome de usuário:</string>
     <string name="hint_step5_nickname_vazio">Escolha um nickname!</string>
     <string name="hint_step5_nickname_existe">O nicnkname já existe!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

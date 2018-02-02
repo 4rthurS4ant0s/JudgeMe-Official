@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
 
@@ -44,6 +47,9 @@ public class CreateAccount1Activity extends Activity {
     private int pDay;
     /** This integer will uniquely define the dialog to be used for displaying date picker.*/
     static final int DATE_DIALOG_ID = 0;
+
+    private FirebaseAuth mFireAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +102,11 @@ public class CreateAccount1Activity extends Activity {
         });
 
         textViewErro = findViewById(R.id.textViewCreateAccountStep1MenssagemErro);
+        if(mFireAuth.getCurrentUser() != null){//caso o usuário esteja vindo do google ou facebook
+            textViewErro.setText(R.string.hint_step1_iforme_alguns_dados);
+            textViewErro.setVisibility(View.VISIBLE);
+        }
+
         buttonAvancar = findViewById(R.id.buttomCreateAccount1Avancar);
         buttonAvancar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,17 +125,22 @@ public class CreateAccount1Activity extends Activity {
                     //Toast.makeText(getApplicationContext(), "Nome ou sobrenome incompleto(s)",Toast.LENGTH_SHORT).show();
                     textViewErro.setVisibility(View.VISIBLE);
                 }else{
-                    nomeCompleto = nome+" "+sobrenome;
-                    textViewErro.setVisibility(View.INVISIBLE);
+                    nomeCompleto = nome + " " + sobrenome;
 
-                    SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount1Activity.this);
-                    preferencesUser.salvarUsuarioPreferenciasStep1( nome, sobrenome, nomeCompleto, genero, nascimento);
+                    if(verificaNomeValido(nomeCompleto)) {
+                        textViewErro.setVisibility(View.INVISIBLE);
 
-                    Intent intent = new Intent(CreateAccount1Activity.this, CreateAccount2Activity.class);
-                    startActivity(intent);
-                    overridePendingTransitionEnter();
-                    finish();
+                        SharedPreferencesCreateAccount preferencesUser = new SharedPreferencesCreateAccount(CreateAccount1Activity.this);
+                        preferencesUser.salvarUsuarioPreferenciasStep1(nome, sobrenome, nomeCompleto, genero, nascimento);
 
+                        Intent intent = new Intent(CreateAccount1Activity.this, CreateAccount2Activity.class);
+                        startActivity(intent);
+                        overridePendingTransitionEnter();
+                        finish();
+                    }else{
+                        textViewErro.setVisibility(View.VISIBLE);
+                        textViewErro.setText(R.string.hint_step1_erro_nome_invalido);
+                    }
                 }
 
             }
@@ -211,6 +227,16 @@ public class CreateAccount1Activity extends Activity {
      */
     protected void overridePendingTransitionExit() {
         overridePendingTransition(R.animator.slide_from_left, R.animator.slide_to_right);
+    }
+
+    private boolean verificaNomeValido(String nome){
+
+        for (int i = 0; i < nome.length(); i++) {
+            if (!Character.isAlphabetic(nome.charAt(i)))
+                return false;
+        }
+        return true;
+
     }
 
 }

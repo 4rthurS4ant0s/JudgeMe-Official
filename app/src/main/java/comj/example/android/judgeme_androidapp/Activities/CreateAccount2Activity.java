@@ -112,8 +112,8 @@ public class CreateAccount2Activity extends Activity {
             @Override
             public void onClick(View v) {
 
+                textViewErro = findViewById(R.id.textViewCreateAccountStep2MenssagemErro);
                 progressBar.setVisibility(View.VISIBLE);
-                textViewErro.setVisibility(View.INVISIBLE);
 
                 email = editTextEmail.getText().toString();
                 senha = editTextSenha.getText().toString();

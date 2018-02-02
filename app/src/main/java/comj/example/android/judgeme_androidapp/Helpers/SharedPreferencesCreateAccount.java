@@ -1,6 +1,7 @@
 package comj.example.android.judgeme_androidapp.Helpers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -12,6 +13,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -104,7 +110,7 @@ public class SharedPreferencesCreateAccount {
         return dadosUsuario;
     }
 
-    public HashMap<String, String> getSms(){
+    public HashMap<String, String> getSms() {
 
         HashMap<String, String> dadosUsuario = new HashMap<>();
 
@@ -121,7 +127,8 @@ public class SharedPreferencesCreateAccount {
         final String email = getDadosUsuario().get("email");
         final String senha = getDadosUsuario().get("senha");
 
-        db.collection("usuarios").document(Base64Custom.converterBase64(email))
+        db.collection("usuarios")
+                .document(Base64Custom.converterBase64(email))
                 .set(getDadosUsuario())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -145,6 +152,27 @@ public class SharedPreferencesCreateAccount {
                         Log.w("teste", "Error writing document", e);
                     }
                 });
+
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child("autoIncrementNicks").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Log.d("valor",String.valueOf(dataSnapshot.getValue()));
+                int i = Integer.parseInt(dataSnapshot.getValue().toString());
+
+                DatabaseReference databaseReferenceSalvarNovoNick = FirebaseDatabase.getInstance().getReference();
+                databaseReferenceSalvarNovoNick.child("nick").child(String.valueOf(i)).setValue(getDadosUsuario().get("nickname"));
+
+                databaseReference.child("autoIncrementNicks").setValue(String.valueOf(i + 1));
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
