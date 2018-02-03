@@ -34,6 +34,7 @@ public class Upload1Fragment extends Fragment {
 
     private TextView textViewPhoto1;
     private TextView textViewPhoto2;
+    private TextView textViewErro;
 
     private PhotoView photoUpload;
     private ImageView photoBackEndClick;
@@ -57,6 +58,7 @@ public class Upload1Fragment extends Fragment {
 
         textViewPhoto1 = view.findViewById(R.id.textViewUpload1Option1);
         textViewPhoto2 = view.findViewById(R.id.textViewUpload1Option2);
+        textViewErro = view.findViewById(R.id.textViewUpload1MenssagemErro);
 
         photoUpload = view.findViewById(R.id.imageViewUpload1Fotos);
 
@@ -127,14 +129,13 @@ public class Upload1Fragment extends Fragment {
                 try {
 
                     if (photo1 != null && photo2 != null) {
+                        textViewErro.setVisibility(View.INVISIBLE);
+
                         Bundle bundle = new Bundle();
-                        bundle.putString("imagem1", String.valueOf(photo1));
-                        bundle.putString("imagem2", String.valueOf(photo2));
+                        bundle.putString("photo1", String.valueOf(photo1));
+                        bundle.putString("photo2", String.valueOf(photo2));
 
                         Upload2Fragment upload2Fragment = new Upload2Fragment();
-                        //getActivity().getSupportFragmentManager().beginTransaction()
-                        //        .replace(R.id.linearLayoutMainActivity, publishFragment)
-                        //       .commit();
 
                         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
                         upload2Fragment.setArguments(bundle);
@@ -142,10 +143,13 @@ public class Upload1Fragment extends Fragment {
                         fragmentTransaction.replace(R.id.linearLayoutMainActivity, upload2Fragment);
                         fragmentTransaction.commit();
                     } else {
-                        //Toast.makeText(getContext(), "Missing photos", Toast.LENGTH_LONG).show();
+                        textViewErro.setVisibility(View.VISIBLE);
+                        //textViewErro.setText(R.string.hint_upload1_erro);
                     }
 
                 }catch (Exception e){
+                    textViewErro.setVisibility(View.VISIBLE);
+                    //textViewErro.setText(R.string.hint_upload1_erro);
                     e.printStackTrace();
                 }
 

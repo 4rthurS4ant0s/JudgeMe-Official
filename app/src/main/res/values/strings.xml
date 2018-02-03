@@ -582,7 +582,10 @@
     <string name="hint_step5_nickname_vazio">Escolha um nickname!</string>
     <string name="hint_step5_nickname_existe">O nicnkname já existe!</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    #UPLOAD1#
+    <string name="hint_upload1_erro">Está faltando foto(s)!</string>
+    <string name="hint_upload1_descricao">Descrição:</string>
+    <string name="hint_upload1_adicionar_descricao">Adicionar descrição</string>
+    <string name="hint_upload1_categoria">Categoria:</string>
 
 </resources>
