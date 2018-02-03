@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,6 +117,40 @@ public class Upload1Fragment extends Fragment {
         });
         abreGaleria();
         /**---------------------ABRINDO A GALERIA DO USUÁRIO ASSIM QUE ENTRA------------------------***/
+
+
+        buttonAvancar = view.findViewById(R.id.buttomUpload1Avancar);
+        buttonAvancar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+
+                    if (photo1 != null && photo2 != null) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("imagem1", String.valueOf(photo1));
+                        bundle.putString("imagem2", String.valueOf(photo2));
+
+                        Upload2Fragment upload2Fragment = new Upload2Fragment();
+                        //getActivity().getSupportFragmentManager().beginTransaction()
+                        //        .replace(R.id.linearLayoutMainActivity, publishFragment)
+                        //       .commit();
+
+                        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                        upload2Fragment.setArguments(bundle);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.replace(R.id.linearLayoutMainActivity, upload2Fragment);
+                        fragmentTransaction.commit();
+                    } else {
+                        //Toast.makeText(getContext(), "Missing photos", Toast.LENGTH_LONG).show();
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
 
         return view;
     }
