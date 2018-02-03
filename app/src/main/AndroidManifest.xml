@@ -39,7 +39,8 @@
         <activity
             android:name=".Activities.CreateAccount5Activity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.EsqueceuSenhaActivity"></activity>
+        <activity android:name=".Activities.EsqueceuSenhaActivity"
+            android:screenOrientation="portrait"></activity>
 
 
 
