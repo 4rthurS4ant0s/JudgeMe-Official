@@ -232,7 +232,7 @@ public class CreateAccount1Activity extends Activity {
     private boolean verificaNomeValido(String nome){
 
         for (int i = 0; i < nome.length(); i++) {
-            if (!Character.isAlphabetic(nome.charAt(i)))
+            if (Character.isDigit(nome.charAt(i)))
                 return false;
         }
         return true;

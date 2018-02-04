@@ -5,6 +5,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="comj.example.android.judgeme_androidapp.Fragments.Upload2Fragment">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:id="@+id/linearLayoutMainActivityUpload2"
@@ -68,7 +77,7 @@
     </LinearLayout>
 
     <com.github.chrisbanes.photoview.PhotoView
-        android:id="@+id/imageViewUpload2Fotos"
+        android:id="@+id/photoViewUpload2Fotos"
         android:layout_width="match_parent"
         android:layout_height="320dp"
 
@@ -86,7 +95,7 @@
         android:layout_marginHorizontal="10dp"
 
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/hint_upload1_descricao"
+        android:text="@string/hint_upload2_descricao"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16dp"
         android:textStyle="normal"
@@ -106,7 +115,7 @@
 
         android:paddingHorizontal="10dp"
         android:fontFamily="sans-serif-condensed"
-        android:hint="@string/hint_upload1_adicionar_descricao"
+        android:hint="@string/hint_upload2_adicionar_descricao"
         android:textSelectHandle="@color/colorAccent"
         android:inputType="textPersonName"
         android:textSize="16dp"
@@ -123,7 +132,7 @@
         android:layout_marginHorizontal="10dp"
 
         android:fontFamily="sans-serif-condensed"
-        android:text="@string/hint_upload1_categoria"
+        android:text="@string/hint_upload2_categoria"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="16dp"
         android:textStyle="normal"
@@ -132,4 +141,101 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextUpload2Descricao"
         />
 
+    <Spinner
+        android:id="@+id/spinnerUpload2Categorias"
+
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="5dp"
+        android:entries="@array/hint_upload2_categorias"
+        android:fontFamily="sans-serif-condensed"
+
+        android:spinnerMode="dialog"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewUpload2Categoria">
+    </Spinner>
+
+        <TextView
+            android:id="@+id/textViewUpload2Visualizacao"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/hint_upload2_visualizacao"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16dp"
+            android:textStyle="normal"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUpload2Descricao"
+            />
+
+        <RadioGroup
+            android:id="@+id/radioGroupUpload2Visualizacao"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="10dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextUpload2Descricao"
+            >
+
+            <RadioButton
+                android:id="@+id/radioButtonUpload2Publico"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/title_amigos"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16dp"
+                android:textStyle="normal"
+                />
+
+            <RadioButton
+                android:id="@+id/radioButtonUpload2Amigos"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:fontFamily="sans-serif-condensed"
+                android:text="@string/title_publico"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16dp"
+                android:textStyle="normal"
+                />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/radioGroupUpload2Publicar"
+
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/hint_processo_geral_publicar"
+
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupUpload2Visualizacao"/>
+
+    </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

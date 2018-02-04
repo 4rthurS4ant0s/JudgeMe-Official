@@ -45,6 +45,7 @@
     <string name="hint_processo_geral_finalizar">Finalizar</string>
     <string name="hint_processo_geral_pular">Pular</string>
     <string name="hint_processo_geral_enviar">Enviar</string>
+    <string name="hint_processo_geral_publicar">Publicar</string>
 
     #CREATE ACCOUNT ACTIVITY 1#
     <string name="hint_step1">1/5</string>
@@ -584,8 +585,25 @@
 
     #UPLOAD1#
     <string name="hint_upload1_erro">Está faltando foto(s)!</string>
-    <string name="hint_upload1_descricao">Descrição:</string>
-    <string name="hint_upload1_adicionar_descricao">Adicionar descrição</string>
-    <string name="hint_upload1_categoria">Categoria:</string>
+
+    #UPLOAD2#
+    <string name="hint_upload2_descricao">Descrição:</string>
+    <string name="hint_upload2_adicionar_descricao">Adicionar descrição</string>
+    <string name="hint_upload2_categoria">Categoria:</string>
+    <string name="hint_upload2_visualizacao">Visualização:</string>
+    <string name="hint_upload2_publico">Público:</string>
+    <string name="hint_upload2_amigos">Amigos:</string>
+    <string-array name="hint_upload2_categorias">
+        <item>Outro</item>
+        <item>Moda</item>
+        <item>Comida</item>
+        <item>Saúde</item>
+        <item>Negócios</item>
+        <item>Tecnologia</item>
+        <item>Jogos</item>
+        <item>Música</item>
+        <item>Estudo</item>
+        <item>Adulto</item>
+    </string-array>
 
 </resources>

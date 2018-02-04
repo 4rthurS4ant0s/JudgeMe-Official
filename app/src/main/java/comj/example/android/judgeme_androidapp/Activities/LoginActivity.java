@@ -259,6 +259,7 @@ public class LoginActivity extends Activity {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 buttonLogarFacebook.setEnabled(false);
+                textViewErroLogin = findViewById(R.id.textViewLoginErroLogin);
                 textViewErroLogin.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
 
