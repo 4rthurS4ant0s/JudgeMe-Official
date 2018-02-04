@@ -96,10 +96,19 @@ public class CreateAccount5Activity extends Activity {
 
                     sharedPreferencesCreateAccount.salvarDadosDoUsuario();
 
-                    Intent intent = new Intent(CreateAccount5Activity.this, LoginActivity.class);
-                    startActivity(intent);
-                    overridePendingTransitionExit();
-                    finish();
+                    if(mFireAuth.getCurrentUser() != null) {
+                        Log.d("conta","logada");
+                        Intent intent = new Intent(CreateAccount5Activity.this, MainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransitionExit();
+                        finish();
+                    }else {
+                        Log.d("conta","n logada");
+                        Intent intent = new Intent(CreateAccount5Activity.this, LoginActivity.class);
+                        startActivity(intent);
+                        overridePendingTransitionExit();
+                        finish();
+                    }
 
                 }else{
 

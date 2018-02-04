@@ -593,6 +593,8 @@
     <string name="hint_upload2_visualizacao">Visualização:</string>
     <string name="hint_upload2_publico">Público:</string>
     <string name="hint_upload2_amigos">Amigos:</string>
+    <string name="hint_upload2_erro">Erro ao publicar. \nTente novamente</string>
+    <string name="hint_upload2_sucesso">Sucesso!</string>
     <string-array name="hint_upload2_categorias">
         <item>Outro</item>
         <item>Moda</item>

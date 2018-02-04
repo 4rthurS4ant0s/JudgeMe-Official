@@ -207,7 +207,6 @@ public class CreateAccount4Activity extends Activity {
                             Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = task.getResult().getUser();
-
                             mAuth.signOut();
 
                             Intent intent = new Intent(CreateAccount4Activity.this, CreateAccount5Activity.class);

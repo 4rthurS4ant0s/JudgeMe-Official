@@ -38,6 +38,11 @@ public class SharedPreferencesCreateAccount {
 
     private static final String CHAVE_SMS = "sms_enviado";
 
+    private static final String CHAVE_BIO = "bio";
+    private static final String CHAVE_QTD_PUBLICACOES = "qtd_publicacoes";
+    private static final String CHAVE_QTD_SEGUIDORES = "qtd_seguidores";
+    private static final String CHAVE_QTD_SEGUINDO = "qtd_seguindo";
+
     private static final String CHAVE_NOME_COMPLETO = "nome_completo";
     private static final String CHAVE_GENERO = "genero";
     private static final String CHAVE_NASCIMENTO = "nascimento";
@@ -89,7 +94,13 @@ public class SharedPreferencesCreateAccount {
 
     public void salvarUsuarioPreferenciasStep5( String nickname){
 
+        editor.putString(CHAVE_BIO,"Edite sua bio");
+        editor.putString(CHAVE_QTD_PUBLICACOES,"0");
+        editor.putString(CHAVE_QTD_SEGUIDORES,"0");
+        editor.putString(CHAVE_QTD_SEGUINDO,"0");
+
         editor.putString(CHAVE_NICKNAME, nickname);
+
         editor.commit();
 
     }
@@ -98,6 +109,10 @@ public class SharedPreferencesCreateAccount {
 
         HashMap<String, String> dadosUsuario = new HashMap<>();
 
+        dadosUsuario.put(CHAVE_BIO, sharedPreferences.getString(CHAVE_BIO, null));
+        dadosUsuario.put(CHAVE_QTD_PUBLICACOES, sharedPreferences.getString(CHAVE_QTD_PUBLICACOES, null));
+        dadosUsuario.put(CHAVE_QTD_SEGUIDORES, sharedPreferences.getString(CHAVE_QTD_SEGUIDORES, null));
+        dadosUsuario.put(CHAVE_QTD_SEGUINDO, sharedPreferences.getString(CHAVE_QTD_SEGUINDO, null));
         dadosUsuario.put(CHAVE_NOME_COMPLETO, sharedPreferences.getString(CHAVE_NOME_COMPLETO, null));
         dadosUsuario.put(CHAVE_GENERO, sharedPreferences.getString(CHAVE_GENERO, null));
         dadosUsuario.put(CHAVE_NASCIMENTO, sharedPreferences.getString(CHAVE_NASCIMENTO, null));
@@ -153,26 +168,26 @@ public class SharedPreferencesCreateAccount {
                     }
                 });
 
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("autoIncrementNicks").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                Log.d("valor",String.valueOf(dataSnapshot.getValue()));
-                int i = Integer.parseInt(dataSnapshot.getValue().toString());
-
-                DatabaseReference databaseReferenceSalvarNovoNick = FirebaseDatabase.getInstance().getReference();
-                databaseReferenceSalvarNovoNick.child("nick").child(String.valueOf(i)).setValue(getDadosUsuario().get("nickname"));
-
-                databaseReference.child("autoIncrementNicks").setValue(String.valueOf(i + 1));
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+//        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+//        databaseReference.child("autoIncrementNicks").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                Log.d("valor",String.valueOf(dataSnapshot.getValue()));
+//                int i = Integer.parseInt(dataSnapshot.getValue().toString());
+//
+//                DatabaseReference databaseReferenceSalvarNovoNick = FirebaseDatabase.getInstance().getReference();
+//                databaseReferenceSalvarNovoNick.child("nick").child(String.valueOf(i)).setValue(getDadosUsuario().get("nickname"));
+//
+//                databaseReference.child("autoIncrementNicks").setValue(String.valueOf(i + 1));
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 
     }
 
