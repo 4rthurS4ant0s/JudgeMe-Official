@@ -79,10 +79,12 @@ public class Upload2Fragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_upload2, container, false);
 
+        //gerando o spinner de categorias
         spinnerCategorias = view.findViewById(R.id.spinnerUpload2Categorias);
         arrayAdapter = ArrayAdapter.createFromResource(view.getContext(), R.array.hint_upload2_categorias, R.layout.spinner_items);
         spinnerCategorias.setAdapter(arrayAdapter);
 
+        //modo de view 1 e 2
         linearLayoutOption1 = view.findViewById(R.id.linearLayoutUpload2Option1);
         linearLayoutOption2 = view.findViewById(R.id.linearLayoutUpload2Option2);
 
@@ -91,6 +93,7 @@ public class Upload2Fragment extends Fragment {
 
         editTextDescricao = view.findViewById(R.id.editTextUpload2Descricao);
 
+        //setando o modo público como default
         radioGroupVisualizacao = view.findViewById(R.id.radioGroupUpload2Visualizacao);
         radioButtonAmigos = view.findViewById(R.id.radioButtonUpload2Amigos);
         radioButtonPublico = view.findViewById(R.id.radioButtonUpload2Publico);
@@ -174,6 +177,9 @@ public class Upload2Fragment extends Fragment {
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
 
+    //método para pegar publicar seguindo o processo:
+    //primeiro : pega o autoIcrement das publicações
+    //segundo : salvando os dados da publicação
     private void publicar(final String descricao, final String categoria, final String modoVisualizacao, final Uri photo1, final Uri photo2, View view){
 
         progressBar = view.findViewById(R.id.simpleProgressBarUpload2);
@@ -202,10 +208,9 @@ public class Upload2Fragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                int autoIncrement = Integer.parseInt(task.getResult().getString("quantidade"));
+                final int autoIncrement = Integer.parseInt(task.getResult().getString("quantidade"));
                 final HashMap<String, String> autoIncrementar = new HashMap<>();
-                autoIncrement = autoIncrement + 1;
-                autoIncrementar.put("quantidade", String.valueOf(autoIncrement));
+                autoIncrementar.put("quantidade", String.valueOf(autoIncrement + 1));
 
                 dbPublicar.collection("publicacoes")
                         .document(String.valueOf(autoIncrement))
@@ -216,8 +221,8 @@ public class Upload2Fragment extends Fragment {
 
                         if(task.isSuccessful()){
 
-                            storageRef.child("publicacoes").child(autoIncrementVotos).child("photo1").putFile(photo1);
-                            storageRef.child("publicacoes").child(autoIncrementVotos).child("photo2").putFile(photo2);
+                            storageRef.child("publicacoes").child(String.valueOf(autoIncrement)).child("photo1").putFile(photo1);
+                            storageRef.child("publicacoes").child(String.valueOf(autoIncrement)).child("photo2").putFile(photo2);
                             progressBar.setVisibility(View.INVISIBLE);
                             textViewErro.setText(R.string.hint_upload2_sucesso);
                             textViewErro.setVisibility(View.VISIBLE);
