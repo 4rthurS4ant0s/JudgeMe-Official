@@ -608,7 +608,15 @@
         <item>Adulto</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    #PÚBLICO#
+    <string name="hint_publico_nome_usuario">Nome usuário</string>
+    <string name="hint_publico_nick_usuario">Nick usuário</string>
+    <string name="hint_publico_descricao_post">Post descrição</string>
+    <string name="hint_publico_qtd_likes_photo1">0</string>
+    <string name="hint_publico_qtd_likes_photo2">0</string>
+    <string name="hint_publico_qtd_likes_total">0</string>
+    <string name="hint_publico_qtd_comments_total">0</string>
+    <string name="hint_publico_ver_comments">Ver comentários...</string>
+    <string name="hint_publico_add_comments">Adicionar comentários</string>
 
 </resources>
