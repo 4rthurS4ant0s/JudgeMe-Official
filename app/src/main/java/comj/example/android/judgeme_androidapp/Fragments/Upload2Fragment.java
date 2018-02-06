@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -230,6 +231,8 @@ public class Upload2Fragment extends Fragment {
                             dbAutoIncrementar.collection("autoIncrementPublicacoes")
                                     .document("publicacoes").set(autoIncrementar);
 
+                            updateUI();
+
                         }else{
                             progressBar.setVisibility(View.INVISIBLE);
                             textViewErro.setVisibility(View.VISIBLE);
@@ -242,6 +245,16 @@ public class Upload2Fragment extends Fragment {
 
             }
         });
+    }
+
+    private void updateUI(){
+
+        PublicoFragment publicoFragment = new PublicoFragment();
+
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.linearLayoutMainActivity, publicoFragment);
+        fragmentTransaction.commit();
 
     }
 
