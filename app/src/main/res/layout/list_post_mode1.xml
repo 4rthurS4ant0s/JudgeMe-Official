@@ -189,7 +189,7 @@
         />
 
     <TextView
-        android:id="@+id/textViewListPostMode1AddComments"
+        android:id="@+id/textViewListPostMode1VerComments"
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -206,7 +206,7 @@
         />
 
     <EditText
-        android:id="@+id/editTextCreateAccount1PrimeiroNome"
+        android:id="@+id/editTextListPostMode1AddComments"
 
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -220,7 +220,7 @@
         android:layout_marginVertical="5dp"
 
         app:layout_constraintStart_toStartOf="@id/photoViewListPostMode1Photo1"
-        app:layout_constraintTop_toBottomOf="@id/textViewListPostMode1AddComments"
+        app:layout_constraintTop_toBottomOf="@id/textViewListPostMode1VerComments"
         />
 
 </android.support.constraint.ConstraintLayout>
