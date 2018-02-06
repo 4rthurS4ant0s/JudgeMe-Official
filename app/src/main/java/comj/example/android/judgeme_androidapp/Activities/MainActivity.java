@@ -22,6 +22,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import comj.example.android.judgeme_androidapp.Fragments.PublicoFragment;
 import comj.example.android.judgeme_androidapp.Fragments.Upload1Fragment;
 import comj.example.android.judgeme_androidapp.Helpers.Base64Custom;
 import comj.example.android.judgeme_androidapp.Helpers.SharedPreferencesCreateAccount;
@@ -36,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_publico:
+                    PublicoFragment publicoFragment = new PublicoFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.linearLayoutMainActivity, publicoFragment)
+                            .commit();
 
                     return true;
                 case R.id.navigation_amigos:
@@ -101,6 +106,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //incializar o modo de públicação para o mundo
+        PublicoFragment publicoFragment = new PublicoFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.linearLayoutMainActivity, publicoFragment)
+                .commit();
 
     }
 
