@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()) {
                         if (document != null) {
-                            Log.d("email", "Usuário já se registrou: " + task.getResult().getData());
+                            Log.d("email", "Usuário já se registrou: ");
                         }
                     }else{
                         Log.d("email","Usuário precisa se registrar");

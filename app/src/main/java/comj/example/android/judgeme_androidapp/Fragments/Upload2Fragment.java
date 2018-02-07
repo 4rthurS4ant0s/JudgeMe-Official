@@ -181,70 +181,86 @@ public class Upload2Fragment extends Fragment {
     //método para pegar publicar seguindo o processo:
     //primeiro : pega o autoIcrement das publicações
     //segundo : salvando os dados da publicação
-    private void publicar(final String descricao, final String categoria, final String modoVisualizacao, final Uri photo1, final Uri photo2, View view){
+    private void publicar(final String descricao, final String categoria, final String modoVisualizacao, final Uri photo1, final Uri photo2, final View view){
 
-        progressBar = view.findViewById(R.id.simpleProgressBarUpload2);
-        textViewErro = view.findViewById(R.id.textViewUpload2MenssagemErro);
-
-        final String email = mAuth.getCurrentUser().getEmail();
-
-        final String autoIncrementVotos = "0";
-        String votosPhoto1 = "0";
-        String votosPhoto2 = "0";
-
-        final HashMap<String, String> dadosPost = new HashMap<>();
-
-        dadosPost.put("email", email);
-        dadosPost.put("descricao", descricao);
-        dadosPost.put("categoria", categoria);
-        dadosPost.put("modoVisualizacao", modoVisualizacao);
-        dadosPost.put("autoIncrementVotos", "0");
-        dadosPost.put("votosPhoto1", "0");
-        dadosPost.put("votosPhoto2", "0");
-
-        db.collection("autoIncrementPublicacoes")
-                .document("publicacoes")
+        String emailUsuario = mAuth.getCurrentUser().getEmail();
+        db.collection("usuarios")
+                .document(Base64Custom.converterBase64(emailUsuario))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                final int autoIncrement = Integer.parseInt(task.getResult().getString("quantidade"));
-                final HashMap<String, String> autoIncrementar = new HashMap<>();
-                autoIncrementar.put("quantidade", String.valueOf(autoIncrement + 1));
-
-                dbPublicar.collection("publicacoes")
-                        .document(String.valueOf(autoIncrement))
-                        .set(dadosPost)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
-                        if(task.isSuccessful()){
+                        progressBar = view.findViewById(R.id.simpleProgressBarUpload2);
+                        textViewErro = view.findViewById(R.id.textViewUpload2MenssagemErro);
 
-                            storageRef.child("publicacoes").child(String.valueOf(autoIncrement)).child("photo1").putFile(photo1);
-                            storageRef.child("publicacoes").child(String.valueOf(autoIncrement)).child("photo2").putFile(photo2);
-                            progressBar.setVisibility(View.INVISIBLE);
-                            textViewErro.setText(R.string.hint_upload2_sucesso);
-                            textViewErro.setVisibility(View.VISIBLE);
+                        final String email = mAuth.getCurrentUser().getEmail();
 
-                            dbAutoIncrementar.collection("autoIncrementPublicacoes")
-                                    .document("publicacoes").set(autoIncrementar);
+                        final String autoIncrementVotos = "0";
+                        String votosPhoto1 = "0";
+                        String votosPhoto2 = "0";
 
-                            updateUI();
+                        final HashMap<String, String> dadosPost = new HashMap<>();
 
-                        }else{
-                            progressBar.setVisibility(View.INVISIBLE);
-                            textViewErro.setVisibility(View.VISIBLE);
-                        }
+                        dadosPost.put("email", email);
+                        dadosPost.put("descricao", descricao);
+                        dadosPost.put("categoria", categoria);
+                        dadosPost.put("modoVisualizacao", modoVisualizacao);
+                        dadosPost.put("autoIncrementVotos", "0");
+                        dadosPost.put("votosPhoto1", "0");
+                        dadosPost.put("votosPhoto2", "0");
+                        dadosPost.put("qtdComments","0");
+                        dadosPost.put("email", task.getResult().getString("email"));
+                        dadosPost.put("nickname", task.getResult().getString("nickname"));
+                        dadosPost.put("nome_completo", task.getResult().getString("nome_completo"));
+
+                        db.collection("autoIncrementPublicacoes")
+                                .document("publicacoes")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                                        final int autoIncrement = Integer.parseInt(task.getResult().getString("quantidade"));
+                                        final HashMap<String, String> autoIncrementar = new HashMap<>();
+                                        autoIncrementar.put("quantidade", String.valueOf(autoIncrement + 1));
+
+                                        dbPublicar.collection("publicacoes")
+                                                .document(String.valueOf(autoIncrement))
+                                                .set(dadosPost)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                                        if(task.isSuccessful()){
+
+                                                            storageRef.child("publicacoes").child(String.valueOf(autoIncrement)).child("photo1").putFile(photo1);
+                                                            storageRef.child("publicacoes").child(String.valueOf(autoIncrement)).child("photo2").putFile(photo2);
+                                                            progressBar.setVisibility(View.INVISIBLE);
+                                                            textViewErro.setText(R.string.hint_upload2_sucesso);
+                                                            textViewErro.setVisibility(View.VISIBLE);
+
+                                                            dbAutoIncrementar.collection("autoIncrementPublicacoes")
+                                                                    .document("publicacoes").set(autoIncrementar);
+
+                                                            updateUI();
+
+                                                        }else{
+                                                            progressBar.setVisibility(View.INVISIBLE);
+                                                            textViewErro.setVisibility(View.VISIBLE);
+                                                        }
+
+                                                    }
+                                                });
+
+                                        Log.d("publish",descricao+" "+categoria+" "+modoVisualizacao+" "+String.valueOf(photo1)+" "+String.valueOf(photo2)+" "+String.valueOf(autoIncrement));
+
+                                    }
+                                });
 
                     }
                 });
 
-                Log.d("publish",descricao+" "+categoria+" "+modoVisualizacao+" "+String.valueOf(photo1)+" "+String.valueOf(photo2)+" "+String.valueOf(autoIncrement));
-
-            }
-        });
     }
 
     private void updateUI(){
