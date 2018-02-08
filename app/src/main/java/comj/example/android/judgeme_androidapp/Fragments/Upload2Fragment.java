@@ -147,7 +147,7 @@ public class Upload2Fragment extends Fragment {
                 //publicar
                 String descricao = editTextDescricao.getText().toString();
                 if(descricao.equals(null)){
-                    descricao = "";
+                    descricao = " ";
                 }
 
                 String categoria = spinnerCategorias.getSelectedItem().toString();

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,6 +45,7 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
     StorageReference storageRef = storage.getReference();
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore dbUpdate = FirebaseFirestore.getInstance();
     public ArrayList<HashMap<String, String>> publicacaoList;
     public HashMap<String, String> data;
 
@@ -76,13 +78,13 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
-        View view = convertView;
-        view = inflater.inflate(R.layout.list_post_mode1, null);
+        //View view = convertView;
+        final View view = inflater.inflate(R.layout.list_post_mode1, null);
 
         //fotos
-        CircleImageView circleImageViewPhotoPerfil = view.findViewById(R.id.circleImageViewListPostMode1FotoPerfil);
+        final CircleImageView circleImageViewPhotoPerfil = view.findViewById(R.id.circleImageViewListPostMode1FotoPerfil);
         final PhotoView photoViewPhoto1 = view.findViewById(R.id.photoViewListPostMode1Photo1);
         final PhotoView photoViewPhoto2 = view.findViewById(R.id.photoViewListPostMode1Photo2);
         ImageView imageViewLike = view.findViewById(R.id.imageViewListPostMode1QuantidadeTotalLikes);
@@ -93,9 +95,9 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
         final TextView textViewDescricao = view.findViewById(R.id.textViewListPostMode1DescricaoPost);
 
         //quantidade de likes
-        TextView textViewQtdLikesPhoto1 = view.findViewById(R.id.textViewListPostMode1QuantidadeLikesPhoto1);
-        TextView textViewQtdLikesPhoto2 = view.findViewById(R.id.textViewListPostMode1QuantidadeLikesPhoto2);
-        TextView textViewQtdTotalLikes = view.findViewById(R.id.textViewListPostMode1QuantidadeTotalLikes);
+        final TextView textViewQtdLikesPhoto1 = view.findViewById(R.id.textViewListPostMode1QuantidadeLikesPhoto1);
+        final TextView textViewQtdLikesPhoto2 = view.findViewById(R.id.textViewListPostMode1QuantidadeLikesPhoto2);
+        final TextView textViewQtdTotalLikes = view.findViewById(R.id.textViewListPostMode1QuantidadeTotalLikes);
 
         //quantidade de comentarios
         TextView textViewQtdTotalComments = view.findViewById(R.id.textViewListPostMode1QuantidadeTotalComments);
@@ -113,6 +115,9 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
                 textViewNomeUsuario.setText(task.getResult().getString("nome_completo"));
                 textViewNickUsuario.setText(task.getResult().getString("nickname"));
                 textViewDescricao.setText(task.getResult().getString("descricao"));
+                textViewQtdLikesPhoto1.setText(task.getResult().getString("votosPhoto1"));
+                textViewQtdLikesPhoto2.setText(task.getResult().getString("votosPhoto2"));
+                textViewQtdTotalLikes.setText(task.getResult().getString("autoIncrementVotos"));
 
             }
         });
@@ -125,7 +130,7 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
 
                         Uri uri = task.getResult();
                         Picasso.with(mContext).load(uri).into(photoViewPhoto1);
-                        Log.d("image ", "foi : " + String.valueOf(uri));
+                        //Log.d("image ", "foi : " + String.valueOf(uri));
 
                     }
                 });
@@ -138,13 +143,139 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
 
                         Uri uri = task.getResult();
                         Picasso.with(mContext).load(uri).into(photoViewPhoto2);
-                        Log.d("image ", "foi : " + String.valueOf(uri));
+                        //Log.d("image ", "foi : " + String.valueOf(uri));
 
                     }
                 });
 
+        photoViewPhoto1.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                darLikePhoto1(view, position);
+                return true;
+            }
+
+            @Override
+            public boolean onDoubleTapEvent(MotionEvent e) {
+                return false;
+            }
+        });
+
+        photoViewPhoto2.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                darLikePhoto2(view, position);
+                return true;
+            }
+
+            @Override
+            public boolean onDoubleTapEvent(MotionEvent e) {
+                return false;
+            }
+        });
 
         return view;
 
     }
+
+    private void darLikePhoto1(View view, final int position){
+
+        final TextView textViewQtdLikesPhoto1 = view.findViewById(R.id.textViewListPostMode1QuantidadeLikesPhoto1);
+        final TextView textViewQtdTotalLikes = view.findViewById(R.id.textViewListPostMode1QuantidadeTotalLikes);
+
+        db.collection("publicacoes")
+                .document(String.valueOf(position))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                //Log.d("qtd de votos", task.getResult().getString("votosPhoto1"));
+                final int quantidadeDeVotos = Integer.parseInt(task.getResult().getString("votosPhoto1"));
+                dbUpdate.collection("publicacoes")
+                        .document(String.valueOf(position))
+                        .update("votosPhoto1", String.valueOf(quantidadeDeVotos + 1))
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        Log.d("deu like","deu like");
+                        textViewQtdLikesPhoto1.setText(String.valueOf(quantidadeDeVotos + 1));
+
+                    }
+                });
+
+                final int quantidadeDeVotosTOTAL = Integer.parseInt(task.getResult().getString("autoIncrementVotos"));
+                dbUpdate.collection("publicacoes")
+                        .document(String.valueOf(position))
+                        .update("autoIncrementVotos", String.valueOf(quantidadeDeVotosTOTAL + 1))
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+
+                                textViewQtdTotalLikes.setText(String.valueOf(quantidadeDeVotosTOTAL + 1));
+
+                            }
+                        });
+
+            }
+        });
+
+    }
+
+    private void darLikePhoto2(View view, final int position){
+
+        final TextView textViewQtdLikesPhoto2 = view.findViewById(R.id.textViewListPostMode1QuantidadeLikesPhoto2);
+        final TextView textViewQtdTotalLikes = view.findViewById(R.id.textViewListPostMode1QuantidadeTotalLikes);
+
+        db.collection("publicacoes")
+                .document(String.valueOf(position))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        //Log.d("qtd de votos", task.getResult().getString("votosPhoto1"));
+                        final int quantidadeDeVotos = Integer.parseInt(task.getResult().getString("votosPhoto2"));
+                        dbUpdate.collection("publicacoes")
+                                .document(String.valueOf(position))
+                                .update("votosPhoto2", String.valueOf(quantidadeDeVotos + 1))
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        Log.d("deu like","deu like");
+                                        textViewQtdLikesPhoto2.setText(String.valueOf(quantidadeDeVotos + 1));
+
+                                    }
+                                });
+
+                        final int quantidadeDeVotosTOTAL = Integer.parseInt(task.getResult().getString("autoIncrementVotos"));
+                        dbUpdate.collection("publicacoes")
+                                .document(String.valueOf(position))
+                                .update("autoIncrementVotos", String.valueOf(quantidadeDeVotosTOTAL + 1))
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        textViewQtdTotalLikes.setText(String.valueOf(quantidadeDeVotosTOTAL + 1));
+
+                                    }
+                                });
+
+                    }
+                });
+
+    }
+
 }

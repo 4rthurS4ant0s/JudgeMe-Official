@@ -84,7 +84,8 @@ public class PublicoFragment extends Fragment {
 
                                     data.put("commentsTotal", task.getResult().getString("qtdComments"));
 
-                                    Log.d("publicacao",String.valueOf(finalI));
+                                    Log.d("publicacao", String.valueOf(finalI));
+
                                     publicacaoList.add(data);
 
                                     if(finalI == 0){
