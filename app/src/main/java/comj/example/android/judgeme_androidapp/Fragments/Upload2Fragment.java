@@ -253,6 +253,14 @@ public class Upload2Fragment extends Fragment {
                                                     }
                                                 });
 
+                                        final HashMap<String, String> defaultIncrement = new HashMap<>();
+                                        defaultIncrement.put("0", "default");
+                                        dbPublicar.collection("publicacoes")
+                                                .document(String.valueOf(autoIncrement))
+                                                .collection("votos")
+                                                .document("quem_votou")
+                                                .set(defaultIncrement);
+
                                         Log.d("publish",descricao+" "+categoria+" "+modoVisualizacao+" "+String.valueOf(photo1)+" "+String.valueOf(photo2)+" "+String.valueOf(autoIncrement));
 
                                     }

@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -48,6 +49,8 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
     private FirebaseFirestore dbUpdate = FirebaseFirestore.getInstance();
     public ArrayList<HashMap<String, String>> publicacaoList;
     public HashMap<String, String> data;
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public CustomListViewAdapterMode1(Context context, ArrayList<HashMap<String, String>> data) {
 
@@ -156,7 +159,7 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                darLikePhoto1(view, position);
+                podeVotarPhoto1(position, view);
                 return true;
             }
 
@@ -174,7 +177,7 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
-                darLikePhoto2(view, position);
+                podeVotarPhoto2(position, view);
                 return true;
             }
 
@@ -185,6 +188,98 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
         });
 
         return view;
+
+    }
+
+    private void podeVotarPhoto1(final int position, final View view){
+
+        db.collection("publicacoes")
+                .document(String.valueOf(position))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        final int qtdVotos = Integer.parseInt(task.getResult().getString("autoIncrementVotos"));
+
+                        db.collection("publicacoes")
+                                .document(String.valueOf(position))
+                                .collection("votos")
+                                .document("quem_votou")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                                        boolean podeVotar = true;
+                                        for(int i = 0; i <= qtdVotos; i++) {
+
+                                            String email = task.getResult().getString(String.valueOf(i));
+                                            //Log.d("quem votou: ", task.getResult().getString(String.valueOf(i)));
+                                            if (mAuth.getCurrentUser().getEmail().equals(email)) {
+                                                podeVotar = false;
+                                            }
+
+                                            if (i == qtdVotos) {
+                                                Log.d("pode votar", String.valueOf(podeVotar) +" "+ mAuth.getCurrentUser().getEmail() +" "+ email);
+                                                if(podeVotar == true){
+                                                    darLikePhoto1(view, position);
+                                                }
+                                            }
+
+                                        }
+
+                                    }
+                                });
+
+                    }
+                });
+
+    }
+
+    private void podeVotarPhoto2(final int position, final View view){
+
+        db.collection("publicacoes")
+                .document(String.valueOf(position))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        final int qtdVotos = Integer.parseInt(task.getResult().getString("autoIncrementVotos"));
+
+                        db.collection("publicacoes")
+                                .document(String.valueOf(position))
+                                .collection("votos")
+                                .document("quem_votou")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                                        boolean podeVotar = true;
+                                        for(int i = 0; i <= qtdVotos; i++) {
+
+                                            String email = task.getResult().getString(String.valueOf(i));
+                                            //Log.d("quem votou: ", task.getResult().getString(String.valueOf(i)));
+                                            if (mAuth.getCurrentUser().getEmail().equals(email)) {
+                                                podeVotar = false;
+                                            }
+
+                                            if (i == qtdVotos) {
+                                                Log.d("pode votar", String.valueOf(podeVotar) +" "+ mAuth.getCurrentUser().getEmail() +" "+ email);
+                                                if(podeVotar == true){
+                                                    darLikePhoto2(view, position);
+                                                }
+                                            }
+
+                                        }
+
+                                    }
+                                });
+
+                    }
+                });
 
     }
 
@@ -230,6 +325,29 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
 
             }
         });
+
+        db.collection("publicacoes")
+                .document(String.valueOf(position))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        final int qtdVotos = Integer.parseInt(task.getResult().getString("autoIncrementVotos"));
+
+                        db.collection("publicacoes")
+                                .document(String.valueOf(position))
+                                .collection("votos")
+                                .document("quem_votou")
+                                .update(String.valueOf(qtdVotos + 1), mAuth.getCurrentUser().getEmail())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.d("voto adicionado","votou");
+                            }
+                        });
+                    }
+                });
 
     }
 
