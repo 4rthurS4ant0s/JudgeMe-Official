@@ -619,4 +619,12 @@
     <string name="hint_publico_ver_comments">Ver comentários...</string>
     <string name="hint_publico_add_comments">Adicionar comentários</string>
 
+    #PERFIL#
+    <string name="hint_profile_nome_usuario">Nome usuário</string>
+    <string name="hint_profile_nick_usuario">Nick usuário</string>
+    <string name="hint_profile_add_descricao">+Adicionar descrição</string>
+    <string name="hint_profile_posts">Posts: 0</string>
+    <string name="hint_profile_followers">Followers: 0</string>
+    <string name="hint_profile_following">Following: 0</string>
+
 </resources>

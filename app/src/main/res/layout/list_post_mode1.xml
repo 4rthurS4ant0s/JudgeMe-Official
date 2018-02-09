@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:padding="10dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -131,14 +132,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <ImageView
-        android:id="@+id/imageViewListPostMode1QuantidadeTotalLikes"
+    <CheckBox
+        android:id="@+id/checkboxListPostMode1QuantidadeTotalLikes"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
 
-        app:srcCompat="@drawable/ic_gavel_black_24dp"
+        android:background="@drawable/ic_favorite_border_black_24dp"
         android:paddingVertical="5dp"
+        android:checked="false"
+        android:clickable="true"
+        android:button="@null"
+        android:focusable="true"
+
+        android:stateListAnimator="@animator/scale"
 
         app:layout_constraintTop_toBottomOf="@id/photoViewListPostMode1Photo1"/>
 
@@ -155,17 +162,17 @@
         android:textColor="@color/colorPrimaryDark"
         android:padding="5dp"
 
-        app:layout_constraintStart_toEndOf="@id/imageViewListPostMode1QuantidadeTotalLikes"
+        app:layout_constraintStart_toEndOf="@id/checkboxListPostMode1QuantidadeTotalLikes"
         app:layout_constraintTop_toBottomOf="@id/photoViewListPostMode1Photo1"
         />
 
     <ImageView
         android:id="@+id/imageViewListPostMode1QuantidadeTotalComments"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
 
-        app:srcCompat="@drawable/ic_mode_comment_black_24dp"
+        android:background="@drawable/ic_mode_comment_black_24dp"
         android:paddingVertical="5dp"
 
         app:layout_constraintStart_toEndOf="@id/textViewListPostMode1QuantidadeTotalLikes"
@@ -202,7 +209,7 @@
         android:padding="5dp"
 
         app:layout_constraintStart_toStartOf="@id/photoViewListPostMode1Photo1"
-        app:layout_constraintTop_toBottomOf="@id/imageViewListPostMode1QuantidadeTotalLikes"
+        app:layout_constraintTop_toBottomOf="@id/checkboxListPostMode1QuantidadeTotalLikes"
         />
 
     <EditText

@@ -1,0 +1,166 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="comj.example.android.judgeme_androidapp.Fragments.ProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        android:id="@+id/circleImageViewProfileFotoPerfil"
+
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="10dp"
+
+        android:src="@drawable/ic_launcher_background"
+        app:civ_border_width="1dp"
+        app:civ_border_color="@color/colorPrimaryDark"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/textViewProfileNomeUsuario"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/hint_profile_nome_usuario"
+        android:textSize="20dp"
+        android:textStyle="normal"
+        android:textColor="@color/colorPrimaryDark"
+
+        android:layout_marginHorizontal="60dp"
+
+        app:layout_constraintStart_toEndOf="@id/circleImageViewProfileFotoPerfil"
+        app:layout_constraintTop_toTopOf="@id/circleImageViewProfileFotoPerfil"/>
+
+    <ImageView
+        android:id="@+id/imageViewProfileFollow"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginHorizontal="10dp"
+        android:background="@drawable/ic_follow_black_24dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+
+        app:layout_constraintStart_toEndOf="@id/textViewProfileNomeUsuario"
+        app:layout_constraintTop_toTopOf="@id/circleImageViewProfileFotoPerfil"
+        app:layout_constraintBottom_toBottomOf="@id/textViewProfileNomeUsuario"/>
+
+    <TextView
+        android:id="@+id/textViewProfileNickUsuario"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/hint_profile_nick_usuario"
+        android:textSize="14dp"
+        android:textStyle="normal"
+        android:textColor="@color/hintColor"
+
+        app:layout_constraintStart_toStartOf="@id/textViewProfileNomeUsuario"
+        app:layout_constraintTop_toBottomOf="@id/textViewProfileNomeUsuario"/>
+
+    <TextView
+        android:id="@+id/textViewProfileAddDescricao"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:fontFamily="sans-serif-condensed"
+        android:text="@string/hint_profile_add_descricao"
+        android:textSize="14dp"
+        android:textStyle="normal"
+        android:textColor="@color/colorPrimaryDark"
+
+        app:layout_constraintStart_toStartOf="@id/textViewProfileNomeUsuario"
+        app:layout_constraintBottom_toBottomOf="@id/circleImageViewProfileFotoPerfil"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutProfileFragmentPostsFollowersFollowing"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+
+        android:background="@drawable/linear_layout"
+
+        app:layout_constraintTop_toBottomOf="@id/circleImageViewProfileFotoPerfil">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/hint_profile_posts"
+            android:textColor="@color/colorPrimaryDark"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginHorizontal="60dp"
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/hint_profile_followers"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="sans-serif-condensed"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/hint_profile_following"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutProfileFragmentOptionsView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/linear_layout"
+        android:layout_marginTop="-0.2dp"
+        android:gravity="center"
+
+        android:orientation="horizontal"
+
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutProfileFragmentPostsFollowersFollowing"
+        >
+
+        <ImageView
+            android:id="@+id/linearLayoutFragmentProfileImageViewOption1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:tint="@color/colorPrimaryDark"
+
+            android:layout_marginRight="60dp"
+            app:srcCompat="@drawable/ic_looks_one_black_24dp"
+            />
+
+        <ImageView
+            android:id="@+id/linearLayoutFragmentProfileImageViewOption2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:tint="@color/hintColor"
+
+            android:layout_marginLeft="60dp"
+            app:srcCompat="@drawable/ic_looks_two_black_24dp"
+            />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

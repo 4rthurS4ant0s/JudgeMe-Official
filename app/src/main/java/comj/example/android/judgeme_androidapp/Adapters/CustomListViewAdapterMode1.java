@@ -1,6 +1,8 @@
 package comj.example.android.judgeme_androidapp.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -90,7 +93,7 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
         final CircleImageView circleImageViewPhotoPerfil = view.findViewById(R.id.circleImageViewListPostMode1FotoPerfil);
         final PhotoView photoViewPhoto1 = view.findViewById(R.id.photoViewListPostMode1Photo1);
         final PhotoView photoViewPhoto2 = view.findViewById(R.id.photoViewListPostMode1Photo2);
-        ImageView imageViewLike = view.findViewById(R.id.imageViewListPostMode1QuantidadeTotalLikes);
+        final CheckBox imageViewLike = view.findViewById(R.id.checkboxListPostMode1QuantidadeTotalLikes);
 
         //texto nome, nick e descricao
         final TextView textViewNomeUsuario = view.findViewById(R.id.textViewListPostMode1NomeUsuario);
@@ -159,6 +162,7 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
 
             @Override
             public boolean onDoubleTap(MotionEvent e) {
+
                 podeVotarPhoto1(position, view);
                 return true;
             }
@@ -193,6 +197,8 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
 
     private void podeVotarPhoto1(final int position, final View view){
 
+        final CheckBox imageViewLike = view.findViewById(R.id.checkboxListPostMode1QuantidadeTotalLikes);
+
         db.collection("publicacoes")
                 .document(String.valueOf(position))
                 .get()
@@ -208,6 +214,7 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
                                 .document("quem_votou")
                                 .get()
                                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @SuppressLint({"ResourceAsColor", "NewApi"})
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 

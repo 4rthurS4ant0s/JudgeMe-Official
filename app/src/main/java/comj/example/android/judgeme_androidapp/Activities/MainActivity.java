@@ -22,6 +22,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import comj.example.android.judgeme_androidapp.Fragments.ProfileFragment;
 import comj.example.android.judgeme_androidapp.Fragments.PublicoFragment;
 import comj.example.android.judgeme_androidapp.Fragments.Upload1Fragment;
 import comj.example.android.judgeme_androidapp.Helpers.Base64Custom;
@@ -47,9 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_adiciona:
-                    Upload1Fragment profileFragment = new Upload1Fragment();
+                    Upload1Fragment upload1Fragment = new Upload1Fragment();
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.linearLayoutMainActivity, profileFragment)
+                            .replace(R.id.linearLayoutMainActivity, upload1Fragment)
                             .commit();
 
                     return true;
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_perfil:
+                    ProfileFragment profileFragment = new ProfileFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.linearLayoutMainActivity, profileFragment)
+                            .commit();
 
                     return true;
             }
