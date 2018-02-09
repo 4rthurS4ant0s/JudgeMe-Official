@@ -132,8 +132,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <CheckBox
-        android:id="@+id/checkboxListPostMode1QuantidadeTotalLikes"
+    <ImageView
+        android:id="@+id/imageViewListPostMode1QuantidadeTotalLikes"
 
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -142,10 +142,6 @@
         android:paddingVertical="5dp"
         android:checked="false"
         android:clickable="true"
-        android:button="@null"
-        android:focusable="true"
-
-        android:stateListAnimator="@animator/scale"
 
         app:layout_constraintTop_toBottomOf="@id/photoViewListPostMode1Photo1"/>
 
@@ -162,7 +158,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:padding="5dp"
 
-        app:layout_constraintStart_toEndOf="@id/checkboxListPostMode1QuantidadeTotalLikes"
+        app:layout_constraintStart_toEndOf="@id/imageViewListPostMode1QuantidadeTotalLikes"
         app:layout_constraintTop_toBottomOf="@id/photoViewListPostMode1Photo1"
         />
 
@@ -209,7 +205,7 @@
         android:padding="5dp"
 
         app:layout_constraintStart_toStartOf="@id/photoViewListPostMode1Photo1"
-        app:layout_constraintTop_toBottomOf="@id/checkboxListPostMode1QuantidadeTotalLikes"
+        app:layout_constraintTop_toBottomOf="@id/imageViewListPostMode1QuantidadeTotalLikes"
         />
 
     <EditText

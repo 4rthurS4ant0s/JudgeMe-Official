@@ -3,7 +3,12 @@ package comj.example.android.judgeme_androidapp.Adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -31,6 +36,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import comj.example.android.judgeme_androidapp.Helpers.Base64Custom;
 import comj.example.android.judgeme_androidapp.R;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -93,7 +99,7 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
         final CircleImageView circleImageViewPhotoPerfil = view.findViewById(R.id.circleImageViewListPostMode1FotoPerfil);
         final PhotoView photoViewPhoto1 = view.findViewById(R.id.photoViewListPostMode1Photo1);
         final PhotoView photoViewPhoto2 = view.findViewById(R.id.photoViewListPostMode1Photo2);
-        final CheckBox imageViewLike = view.findViewById(R.id.checkboxListPostMode1QuantidadeTotalLikes);
+        final ImageView imageViewLike = view.findViewById(R.id.imageViewListPostMode1QuantidadeTotalLikes);
 
         //texto nome, nick e descricao
         final TextView textViewNomeUsuario = view.findViewById(R.id.textViewListPostMode1NomeUsuario);
@@ -191,13 +197,65 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
             }
         });
 
+        postJaVotado(position, view);
+
         return view;
 
     }
 
-    private void podeVotarPhoto1(final int position, final View view){
+    private void postJaVotado(final int position, final View view){
 
-        final CheckBox imageViewLike = view.findViewById(R.id.checkboxListPostMode1QuantidadeTotalLikes);
+        final ImageView imageViewLike = view.findViewById(R.id.imageViewListPostMode1QuantidadeTotalLikes);
+
+        db.collection("publicacoes")
+                .document(String.valueOf(position))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        final int qtdVotos = Integer.parseInt(task.getResult().getString("autoIncrementVotos"));
+
+                        db.collection("publicacoes")
+                                .document(String.valueOf(position))
+                                .collection("votos")
+                                .document("quem_votou")
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @SuppressLint({"ResourceAsColor", "NewApi"})
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                                        boolean podeVotar = true;
+                                        for(int i = 0; i <= qtdVotos; i++) {
+
+                                            String email = task.getResult().getString(String.valueOf(i));
+                                            //Log.d("quem votou: ", task.getResult().getString(String.valueOf(i)));
+                                            if (mAuth.getCurrentUser().getEmail().equals(email)) {
+                                                podeVotar = false;
+                                            }
+
+                                            if (i == qtdVotos) {
+                                                Log.d("pode votar", String.valueOf(podeVotar) +" "+ mAuth.getCurrentUser().getEmail() +" "+ email);
+                                                if(podeVotar == false){
+
+                                                    imageViewLike.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+                                                    imageViewLike.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+
+                                                }
+                                            }
+
+                                        }
+
+                                    }
+                                });
+
+                    }
+                });
+
+    }
+
+    private void podeVotarPhoto1(final int position, final View view){
 
         db.collection("publicacoes")
                 .document(String.valueOf(position))
@@ -295,6 +353,8 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
         final TextView textViewQtdLikesPhoto1 = view.findViewById(R.id.textViewListPostMode1QuantidadeLikesPhoto1);
         final TextView textViewQtdTotalLikes = view.findViewById(R.id.textViewListPostMode1QuantidadeTotalLikes);
 
+        final ImageView imageViewLike = view.findViewById(R.id.imageViewListPostMode1QuantidadeTotalLikes);
+
         db.collection("publicacoes")
                 .document(String.valueOf(position))
                 .get()
@@ -322,10 +382,13 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
                         .document(String.valueOf(position))
                         .update("autoIncrementVotos", String.valueOf(quantidadeDeVotosTOTAL + 1))
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @SuppressLint("NewApi")
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
 
                                 textViewQtdTotalLikes.setText(String.valueOf(quantidadeDeVotosTOTAL + 1));
+                                imageViewLike.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+                                imageViewLike.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
 
                             }
                         });
@@ -363,6 +426,8 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
         final TextView textViewQtdLikesPhoto2 = view.findViewById(R.id.textViewListPostMode1QuantidadeLikesPhoto2);
         final TextView textViewQtdTotalLikes = view.findViewById(R.id.textViewListPostMode1QuantidadeTotalLikes);
 
+        final ImageView imageViewLike = view.findViewById(R.id.imageViewListPostMode1QuantidadeTotalLikes);
+
         db.collection("publicacoes")
                 .document(String.valueOf(position))
                 .get()
@@ -390,10 +455,13 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
                                 .document(String.valueOf(position))
                                 .update("autoIncrementVotos", String.valueOf(quantidadeDeVotosTOTAL + 1))
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @SuppressLint("NewApi")
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
 
                                         textViewQtdTotalLikes.setText(String.valueOf(quantidadeDeVotosTOTAL + 1));
+                                        imageViewLike.setBackgroundResource(R.drawable.ic_favorite_black_24dp);
+                                        imageViewLike.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
 
                                     }
                                 });
