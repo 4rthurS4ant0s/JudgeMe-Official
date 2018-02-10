@@ -1,7 +1,6 @@
 package comj.example.android.judgeme_androidapp.Activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,16 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.EditText;
 
-import com.google.android.gms.auth.GoogleAuthUtil;
+import com.facebook.Profile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -26,7 +21,6 @@ import comj.example.android.judgeme_androidapp.Fragments.ProfileFragment;
 import comj.example.android.judgeme_androidapp.Fragments.PublicoFragment;
 import comj.example.android.judgeme_androidapp.Fragments.Upload1Fragment;
 import comj.example.android.judgeme_androidapp.Helpers.Base64Custom;
-import comj.example.android.judgeme_androidapp.Helpers.SharedPreferencesCreateAccount;
 import comj.example.android.judgeme_androidapp.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,9 +63,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private String emailUsuarioLogado;
-
-    private FirebaseAuth mFireAuth = FirebaseAuth.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -79,14 +71,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        emailUsuarioLogado = mFireAuth.getCurrentUser().getEmail();
-
         /***    CASO O USUÁRIO ESTEJA LOGANDO PELA PRIMEIRA VEZ OU PELO FACE OU PELO GOOGLE...ELE SERÁ MANDADO PARA "CADASTRAR A CONTA"       **/
-        DocumentReference docRef = db.collection("usuarios").document(Base64Custom.converterBase64(emailUsuarioLogado));
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+        Profile profile = Profile.getCurrentProfile();
+
+       db.collection("usuarios")
+                .document(Base64Custom.converterBase64(mAuth.getCurrentUser().getEmail()))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
@@ -162,6 +157,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if(id == R.id.menu_perfil){
             // do something
+            Intent intent = new Intent(MainActivity.this, EditarPerfilActivity.class);
+            startActivity(intent);
+            //finish();
         }
         if(id == R.id.menu_logout){
             // do something

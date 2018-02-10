@@ -10,10 +10,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -39,6 +42,11 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private TextView textViewNome;
+    private TextView textViewNick;
+    private TextView textViewBio;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +62,24 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        textViewNome = view.findViewById(R.id.textViewProfileNomeUsuario);
+        textViewNick = view.findViewById(R.id.textViewProfileNickUsuario);
+        textViewBio = view.findViewById(R.id.textViewProfileAddDescricao);
+
+        db.collection("usuarios")
+                .document(Base64Custom.converterBase64(mAuth.getCurrentUser().getEmail()))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                textViewNome.setText(task.getResult().getString("nome_completo"));
+                textViewNick.setText(task.getResult().getString("nickname"));
+                textViewBio.setText(task.getResult().getString("bio"));
+
+            }
+        });
+
         carregarFotoDePerfil(view);
 
         return view;
@@ -66,8 +92,12 @@ public class ProfileFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
 
-                        Uri uri = task.getResult();
-                        Picasso.with(view.getContext()).load(uri).into(circleImageViewPhotoPerfil);
+                        try {
+                            Uri uri = task.getResult();
+                            Picasso.with(view.getContext()).load(uri).into(circleImageViewPhotoPerfil);
+                        }catch (Exception e){
+
+                        }
                         //Log.d("image ", "foi : " + String.valueOf(uri));
 
                     }

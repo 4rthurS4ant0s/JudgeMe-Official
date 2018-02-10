@@ -30,6 +30,7 @@
     <string name="hint_login_credenciais_invalidas">Verifique o email e a senha!</string>
     <string name="hint_login_ou">OU</string>
     <string name="hint_login_meio_errado">Credenciais inválidas ou conta vinculada com o Google ou Facebook!</string>
+    <string name="hint_login_facebook_erro">Erro ao logar com Facebook!</string>
 
     #ESQUECEU A SENHA#
     <string name="hint_esqueceu_senha">Esqueceu a senha?</string>
@@ -46,6 +47,7 @@
     <string name="hint_processo_geral_pular">Pular</string>
     <string name="hint_processo_geral_enviar">Enviar</string>
     <string name="hint_processo_geral_publicar">Publicar</string>
+    <string name="hint_processo_geral_salvar">Salvar</string>
 
     #CREATE ACCOUNT ACTIVITY 1#
     <string name="hint_step1">1/5</string>
@@ -626,5 +628,13 @@
     <string name="hint_profile_posts">Posts: 0</string>
     <string name="hint_profile_followers">Followers: 0</string>
     <string name="hint_profile_following">Following: 0</string>
+
+    #EDITA PERFIL#
+    <string name="hint_edita_profile_nome">Nome completo</string>
+    <string name="hint_edita_profile_nick">Nickname</string>
+    <string name="hint_edita_profile_bio">Bio</string>
+    <string name="hint_edita_profile_telefone">Telefone</string>
+    <string name="hint_edita_profile_telefone_exemplo">+55(21)999999999</string>
+    <string name="hint_edita_profile_trocar_senha">Trocar senha</string>
 
 </resources>

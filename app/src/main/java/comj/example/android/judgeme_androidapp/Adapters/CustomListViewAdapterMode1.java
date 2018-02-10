@@ -131,6 +131,24 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
                 textViewQtdLikesPhoto2.setText(task.getResult().getString("votosPhoto2"));
                 textViewQtdTotalLikes.setText(task.getResult().getString("autoIncrementVotos"));
 
+                //Log.d("email do post",task.getResult().getString("email"));
+                storageRef.child("usuarios/" + Base64Custom.converterBase64(task.getResult().getString("email")))
+                        .getDownloadUrl()
+                        .addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+
+                                try{
+                                    Uri uri = task.getResult();
+                                    Picasso.with(mContext).load(uri).into(circleImageViewPhotoPerfil);
+                                }catch (Exception e){
+
+                                }
+                                //Log.d("image ", "foi : " + String.valueOf(uri));
+
+                            }
+                        });
+
             }
         });
 

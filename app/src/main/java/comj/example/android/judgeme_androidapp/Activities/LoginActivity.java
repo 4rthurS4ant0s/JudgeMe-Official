@@ -262,7 +262,7 @@ public class LoginActivity extends Activity {
                 textViewErroLogin = findViewById(R.id.textViewLoginErroLogin);
                 textViewErroLogin.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
-
+                //Toast.makeText(getApplicationContext(),"Em breve",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -388,6 +388,11 @@ public class LoginActivity extends Activity {
         // [START_EXCLUDE silent]
         // [END_EXCLUDE]
 
+        textViewErroLogin = findViewById(R.id.textViewLoginErroLogin);
+        textViewErroLogin.setVisibility(View.INVISIBLE);
+
+        progressBar.setVisibility(View.VISIBLE);
+
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -397,7 +402,7 @@ public class LoginActivity extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
+                            progressBar.setVisibility(View.INVISIBLE);
                             updateUI();
 
                         } else {
@@ -423,11 +428,17 @@ public class LoginActivity extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
+                            Log.d("email facebook: ",mAuth.getCurrentUser().getEmail());
+                            mAuth.signOut();
                             updateUI();
                         } else {
                             // If sign in fails, display a message to the user.
-                            updateUI();
+                            //updateUI();
+                            textViewErroLogin = findViewById(R.id.textViewLoginErroLogin);
+                            textViewErroLogin.setText(R.string.hint_login_facebook_erro);
+                            textViewErroLogin.setVisibility(View.VISIBLE);
+
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
 
                         // ...
