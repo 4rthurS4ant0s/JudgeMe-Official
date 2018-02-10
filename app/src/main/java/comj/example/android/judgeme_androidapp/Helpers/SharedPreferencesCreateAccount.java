@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -168,6 +169,7 @@ public class SharedPreferencesCreateAccount {
                     }
                 });
 
+        adicionarEmailAoSearchList(email);
 //        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
 //        databaseReference.child("autoIncrementNicks").addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
@@ -188,6 +190,47 @@ public class SharedPreferencesCreateAccount {
 //
 //            }
 //        });
+
+    }
+
+    private void adicionarEmailAoSearchList(final String email){
+
+        db.collection("autoIncrementSearchListEmails")
+                .document("usuarios")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        int posicao = Integer.parseInt(task.getResult().getString("quantidade"));
+
+                        db.collection("searchListEmails")
+                                .document("usuarios")
+                                .update(String.valueOf(posicao), email)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        Log.d("searchList","foi");
+
+                                    }
+                                });
+
+                        posicao = posicao + 1;
+                        db.collection("autoIncrementSearchListEmails")
+                                .document("usuarios")
+                                .update("quantidade", String.valueOf(posicao))
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+
+                                        Log.d("searchList","sucesso");
+
+                                    }
+                                });
+
+                    }
+                });
 
     }
 

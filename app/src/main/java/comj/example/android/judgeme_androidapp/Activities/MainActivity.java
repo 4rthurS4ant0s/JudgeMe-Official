@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import comj.example.android.judgeme_androidapp.Fragments.ProfileFragment;
 import comj.example.android.judgeme_androidapp.Fragments.PublicoFragment;
+import comj.example.android.judgeme_androidapp.Fragments.SearchFragment;
 import comj.example.android.judgeme_androidapp.Fragments.Upload1Fragment;
 import comj.example.android.judgeme_androidapp.Helpers.Base64Custom;
 import comj.example.android.judgeme_androidapp.R;
@@ -89,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
                     linearLayoutMainActivity = findViewById(R.id.linearLayoutMainActivity);
                     linearLayoutMainActivity.getLayoutParams().height = 1450;
                     linearLayoutMainActivity.requestLayout();
+
+                    SearchFragment searchFragment = new SearchFragment();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.linearLayoutMainActivity, searchFragment)
+                            .commit();
 
                     return true;
                 case R.id.navigation_perfil:
