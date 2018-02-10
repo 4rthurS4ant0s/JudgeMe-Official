@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.facebook.Profile;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,13 +27,26 @@ import comj.example.android.judgeme_androidapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    private LinearLayout linearLayoutMainOptionView;
+    private LinearLayout linearLayoutMainActivity;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
+
                 case R.id.navigation_publico:
+                    linearLayoutMainOptionView = findViewById(R.id.linearLayoutMainActivityOptionView);
+                    linearLayoutMainOptionView.setVisibility(View.VISIBLE);
+                    linearLayoutMainOptionView.getLayoutParams().height = 150;
+                    linearLayoutMainOptionView.requestLayout();
+
+                    linearLayoutMainActivity = findViewById(R.id.linearLayoutMainActivity);
+                    linearLayoutMainActivity.getLayoutParams().height = 1250;
+                    linearLayoutMainActivity.requestLayout();
+
                     PublicoFragment publicoFragment = new PublicoFragment();
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.linearLayoutMainActivity, publicoFragment)
@@ -39,9 +54,26 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_amigos:
+                    linearLayoutMainOptionView = findViewById(R.id.linearLayoutMainActivityOptionView);
+                    linearLayoutMainOptionView.setVisibility(View.VISIBLE);
+                    linearLayoutMainOptionView.getLayoutParams().height = 150;
+                    linearLayoutMainOptionView.requestLayout();
+
+                    linearLayoutMainActivity = findViewById(R.id.linearLayoutMainActivity);
+                    linearLayoutMainActivity.getLayoutParams().height = 1250;
+                    linearLayoutMainActivity.requestLayout();
 
                     return true;
                 case R.id.navigation_adiciona:
+                    linearLayoutMainOptionView = findViewById(R.id.linearLayoutMainActivityOptionView);
+                    linearLayoutMainOptionView.setVisibility(View.VISIBLE);
+                    linearLayoutMainOptionView.getLayoutParams().height = 1;
+                    linearLayoutMainOptionView.requestLayout();
+
+                    linearLayoutMainActivity = findViewById(R.id.linearLayoutMainActivity);
+                    linearLayoutMainActivity.getLayoutParams().height = 1450;
+                    linearLayoutMainActivity.requestLayout();
+
                     Upload1Fragment upload1Fragment = new Upload1Fragment();
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.linearLayoutMainActivity, upload1Fragment)
@@ -49,9 +81,26 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_pesquisa:
+                    linearLayoutMainOptionView = findViewById(R.id.linearLayoutMainActivityOptionView);
+                    linearLayoutMainOptionView.setVisibility(View.VISIBLE);
+                    linearLayoutMainOptionView.getLayoutParams().height = 1;
+                    linearLayoutMainOptionView.requestLayout();
+
+                    linearLayoutMainActivity = findViewById(R.id.linearLayoutMainActivity);
+                    linearLayoutMainActivity.getLayoutParams().height = 1450;
+                    linearLayoutMainActivity.requestLayout();
 
                     return true;
                 case R.id.navigation_perfil:
+                    linearLayoutMainOptionView = findViewById(R.id.linearLayoutMainActivityOptionView);
+                    linearLayoutMainOptionView.setVisibility(View.VISIBLE);
+                    linearLayoutMainOptionView.getLayoutParams().height = 1;
+                    linearLayoutMainOptionView.requestLayout();
+
+                    linearLayoutMainActivity = findViewById(R.id.linearLayoutMainActivity);
+                    linearLayoutMainActivity.getLayoutParams().height = 1450;
+                    linearLayoutMainActivity.requestLayout();
+
                     ProfileFragment profileFragment = new ProfileFragment();
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.linearLayoutMainActivity, profileFragment)
