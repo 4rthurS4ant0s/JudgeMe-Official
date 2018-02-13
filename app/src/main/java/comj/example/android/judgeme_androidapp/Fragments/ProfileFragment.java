@@ -48,6 +48,10 @@ public class ProfileFragment extends Fragment {
     private TextView textViewNick;
     private TextView textViewBio;
 
+    private TextView textViewQtdPosts;
+    private TextView textViewQtdFollowers;
+    private TextView textViewQtdFollowing;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -81,6 +85,7 @@ public class ProfileFragment extends Fragment {
         });
 
         carregarFotoDePerfil(view);
+        quantidadeDePosts(view);
 
         return view;
     }
@@ -134,6 +139,52 @@ public class ProfileFragment extends Fragment {
 
         startActivityForResult(Intent.createChooser(intent, "Select an image"), 123);
         //Toast.makeText(getContext(),"Loading", Toast.LENGTH_LONG).show();
+
+    }
+
+    private void quantidadeDePosts(final View view){
+
+        db.collection("autoIncrementPublicacoes")
+                .document("publicacoes")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                final int qtdPostsTotal = Integer.parseInt(task.getResult().getString("quantidade"));
+                final int[] qtdPostsUsuario = {0};
+
+                for(int i = 0; i < qtdPostsTotal; i++){
+
+                    final int finalI = i;
+                    db.collection("publicacoes")
+                            .document(String.valueOf(i))
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                            String email = task.getResult().getString("email");
+                            if(mAuth.getCurrentUser().getEmail().equals(email)){
+
+                                qtdPostsUsuario[0]++;
+
+                            }
+
+                            if(finalI == qtdPostsTotal - 1){
+
+                                textViewQtdPosts = view.findViewById(R.id.textViewProfileQtdPosts);
+                                textViewQtdPosts.setText("Posts: " + String.valueOf(qtdPostsUsuario[0]));
+
+                            }
+
+                        }
+                    });
+
+                }
+
+            }
+        });
 
     }
 

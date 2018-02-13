@@ -174,7 +174,9 @@ public class EditarPerfilActivity extends Activity {
         db.collection("usuarios").document(Base64Custom.converterBase64(mAuth.getCurrentUser().getEmail())).update("nome_completo", nome);
         db.collection("usuarios").document(Base64Custom.converterBase64(mAuth.getCurrentUser().getEmail())).update("nickname", nick);
         db.collection("usuarios").document(Base64Custom.converterBase64(mAuth.getCurrentUser().getEmail())).update("bio", bio);
-        storageRef.child("usuarios").child(Base64Custom.converterBase64(mAuth.getCurrentUser().getEmail())).putFile(photoSelecionada);
+        if(photoSelecionada != null) {
+            storageRef.child("usuarios").child(Base64Custom.converterBase64(mAuth.getCurrentUser().getEmail())).putFile(photoSelecionada);
+        }
 
     }
 

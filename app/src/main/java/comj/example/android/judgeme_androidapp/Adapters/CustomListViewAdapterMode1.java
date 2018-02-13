@@ -487,6 +487,29 @@ public class CustomListViewAdapterMode1 extends BaseAdapter{
                     }
                 });
 
+        db.collection("publicacoes")
+                .document(String.valueOf(position))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        final int qtdVotos = Integer.parseInt(task.getResult().getString("autoIncrementVotos"));
+
+                        db.collection("publicacoes")
+                                .document(String.valueOf(position))
+                                .collection("votos")
+                                .document("quem_votou")
+                                .update(String.valueOf(qtdVotos + 1), mAuth.getCurrentUser().getEmail())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Log.d("voto adicionado","votou");
+                                    }
+                                });
+                    }
+                });
+
     }
 
 }
